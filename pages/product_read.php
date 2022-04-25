@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/shopfavicon.png">
+  <link rel="icon" type="image/png" href="../assets/img/shopfavicon.png">
   <title>
     Product_read
   </title>
@@ -778,11 +778,23 @@
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+    //confirm delete record will be here
+
+    // confirm record deletion
+    function delete_user(id) {
+        var answer = confirm('Are you sure?');
+        if (answer) {
+            // if user clicked ok,
+            // pass the id to delete.php and execute the delete query
+            window.location = 'product_delete.php?id=' + id;
+        }
+    }
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/argon-dashboard.min.js?v=2.0.2"></script>
+  
 </body>
 
 </html>

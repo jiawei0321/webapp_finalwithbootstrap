@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +20,48 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
 </head>
+<?php
+include '../database/connection.php';
+
+//if submit button is pressed only do these
+if ($_POST) {
+
+  if (empty($_POST['username']) || empty($_POST['password'])) {
+    echo "<div class='alert alert-danger'>Please fill in username and password</div>";
+  } else {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    /*if (!preg_match('/^((?:\s*[A-Za-z]\s*){6,})$/', $username)) {
+                    echo "<div class='alert alert-danger'>Username must not contain space with minimum 6 characters</div>";
+                } else if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,}$/', $password)) {
+                    echo "<div class='alert alert-danger'>Password must be minimum 6 characters, contain at least a number, a capital letter and a small letter</div>";
+                }else{*/
+    // include database connection
+
+    $query = "SELECT username, password, status FROM customers WHERE username = ?";
+    // prepare query for execution
+    $stmt = $con->prepare($query);
+    $stmt->bindParam('1', $username);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $num = $stmt->rowCount();
+
+
+    if ($num == 0) {
+      echo "<div class='alert alert-danger'>User not found.</div>";
+    } else if ($row['password'] != $password) {
+      echo "<div class='alert alert-danger'>Password is incorrect.</div>";
+    } else if ($row['status'] != "active") {
+      echo "<div class='alert alert-danger'>This account is disabled.</div>";
+    } else {
+      header("location:../welcome.php");
+    }
+    //}
+  }
+}
+
+?>
 
 <body class="">
   <div class="container position-sticky z-index-sticky top-0">
@@ -90,19 +131,21 @@
                   <p class="mb-0">Enter your username and password to log in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form">
+                  <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
                     <div class="mb-3">
-                      <input type="username" name="username" class="form-control form-control-lg" placeholder="Username" aria-label="username">
+                      <label for="inputUsername" class="sr-only">Username</label>
+                      <input type="username" id="inputUsername" name="username" class="form-control form-control-lg" placeholder="Username" aria-label="username">
                     </div>
                     <div class="mb-3">
-                      <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="password">
+                      <label for="inputPassword" class="sr-only">Password</label>
+                      <input type="password" id="inputPassword" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="password">
                     </div>
-                   <!-- <div class="form-check form-switch">
+                    <!-- <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe">
                       <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>-->
                     <div class="text-center">
-                      <button type="button" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Log in</button>
+                      <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Log in</button>
                     </div>
                   </form>
                 </div>

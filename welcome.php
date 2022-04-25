@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/shopfavicon.png">
+  <link rel="icon" type="image/png" href="./assets/img/shopfavicon.png">
   <title>
     Welcome
   </title>
@@ -61,7 +61,6 @@ catch (PDOException $exception) {
 ?>
 
 <body class="g-sidenav-show   bg-gray-100">
-  <?php ?>
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
@@ -297,18 +296,18 @@ catch (PDOException $exception) {
       <div class="row">
         <div class="col-xl-6 col-sm-6 mb-xl-4 mb-4">
           <div class="card">
-            <div class="card-body p-3">
+            <div class="card-body p-5">
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
+                    <p class="text-sm mb-4 text-uppercase font-weight-bold">Total Order</p>
                     <h5 class="font-weight-bolder">
-                      $53,000
+                      <?php echo $rowNum; ?>
                     </h5>
-                    <p class="mb-0">
-                      <span class="text-success text-sm font-weight-bolder">+55%</span>
+                    <!--<p class="mb-0">
+                      <span class="text-success text-sm font-weight-bolder">+55% </span>
                       since yesterday
-                    </p>
+                    </p>-->
                   </div>
                 </div>
                 <div class="col-4 text-end">
@@ -322,18 +321,22 @@ catch (PDOException $exception) {
         </div>
         <div class="col-xl-6 col-sm-6 mb-xl-4 mb-4">
           <div class="card">
-            <div class="card-body p-3">
+            <div class="card-body p-5">
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
+                    <p class="text-sm mb-4 text-uppercase font-weight-bold">Product yet to be purchased</p>
                     <h5 class="font-weight-bolder">
-                      2,300
+                      <?php
+                      foreach ($name as $n) {
+                        echo $n['name'] . "<br>";
+                      }
+                      ?>
                     </h5>
-                    <p class="mb-0">
+                    <!--<p class="mb-0">
                       <span class="text-success text-sm font-weight-bolder">+3%</span>
                       since last week
-                    </p>
+                    </p>-->
                   </div>
                 </div>
                 <div class="col-4 text-end">
@@ -347,18 +350,23 @@ catch (PDOException $exception) {
         </div>
         <div class="col-xl-6 col-sm-6 mb-xl-4 mb-4">
           <div class="card">
-            <div class="card-body p-3">
+            <div class="card-body p-5">
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
+                    <p class="text-sm mb-4 text-uppercase font-weight-bold">Customer without Order</p>
                     <h5 class="font-weight-bolder">
-                      +3,462
+                    <?php
+            foreach ($fullname  as $fn) {
+                echo $fn['firstname'] . $fn['lastname'] . "<br>";
+            }
+            //echo $fullname 
+            ?>
                     </h5>
-                    <p class="mb-0">
+                    <!--<p class="mb-0">
                       <span class="text-danger text-sm font-weight-bolder">-2%</span>
                       since last quarter
-                    </p>
+                    </p>-->
                   </div>
                 </div>
                 <div class="col-4 text-end">
@@ -372,17 +380,22 @@ catch (PDOException $exception) {
         </div>
         <div class="col-xl-6 col-sm-6 mb-xl-4 mb-4">
           <div class="card">
-            <div class="card-body p-3">
+            <div class="card-body p-5">
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                    <p class="text-sm mb-4 text-uppercase font-weight-bold">Top 3 Selling Product</p>
                     <h5 class="font-weight-bolder">
-                      $103,430
+                      <?php
+                      foreach ($topsale as $ts) {
+                        echo $ts['name'] . "<br>";
+                      }
+                      //echo $topsale 
+                      ?>
                     </h5>
-                    <p class="mb-0">
+                    <!--<p class="mb-0">
                       <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
-                    </p>
+                    </p>-->
                   </div>
                 </div>
                 <div class="col-4 text-end">
