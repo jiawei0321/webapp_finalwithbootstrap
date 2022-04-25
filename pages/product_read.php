@@ -19,7 +19,88 @@
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+<?php
+// include database connection
+include '../database/connection.php';
+
+// delete message prompt will be here
+$action = isset($_GET['action']) ? $_GET['action'] : "";
+
+// if it was redirected from delete.php
+if ($action == 'deleted') {
+  echo "<div class='alert alert-success'>Product record was deleted.</div>";
+}
+
+if ($action == 'saved') {
+  echo "<div class='alert alert-success'>Product record was saved.</div>";
+}
+if ($action == 'deleteerror') {
+  echo "<div class='alert alert-danger'>Product record unable to delete. Only never purchased product can be deleted.</div>";
+}
+
+// select all data
+
+$query = "SELECT id, name, description, price, product_image FROM products ORDER BY id DESC";
+//prepare above variable
+$stmt = $con->prepare($query);
+$stmt->execute();
+
+// this is how to get number of rows returned
+//see total how many product
+$num = $stmt->rowCount();
+
+// link to create record form
+echo "<a href='product_create.php' class='btn btn-primary m-b-1em'>Create New Product</a>";
+
+//check if more than 0 record found
+if ($num > 0) {
+
+  // data from database will be here
+  echo "<table class='table table-hover table-responsive table-bordered'>"; //start table
+
+  //creating our table heading
+  echo "<tr>";
+  echo "<th>ID</th>";
+  echo "<th>Name</th>";
+  echo "<th>Description</th>";
+  echo "<th>Price</th>";
+  echo "<th>Image</th>";
+  echo "<th>Action</th>";
+  echo "</tr>";
+
+  // table body will be here
+  // retrieve our table contents
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    // extract row
+    // this will make $row['firstname'] to just $firstname only
+    extract($row);
+    // creating new table row per record
+    echo "<tr>";
+    echo "<td>{$id}</td>";
+    echo "<td>{$name}</td>";
+    echo "<td>{$description}</td>";
+    echo "<td>{$price}</td>";
+    echo "<td>";
+    if (empty($image)) {
+      echo "<img src ='uploads/default_product_image.png' width='100px' height='100px'>";
+    } else {
+      echo "<img src ='uploads/{$image}' width='100px' height='100px'>";
+    }
+    echo "</td>";
+    echo "<td>";
+  }
+
+
+  // end table
+  echo "</table>";
+}
+// if no records found
+else {
+  echo "<div class='alert alert-danger'>No records found.</div>";
+}
+?>
 
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -128,7 +209,7 @@
           </ol>
           <h3 class="font-weight-bolder text-white mb-0">Product List</h3>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group">
               <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
@@ -230,206 +311,93 @@
               </ul>
             </li>
           </ul>
-        </div>
+        </div>-->
       </div>
     </nav>
     <!-- End Navbar -->
+    <!-- note:py-4 control distance above the button-->
     <div class="container-fluid py-4">
+      <div class="col-12 text-start pb-4">
+        <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New Product</a>
+      </div>
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>Authors table</h6>
+              <h6>Product List table</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">John Michael</h6>
-                            <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                          </div>
+                
+                <?php if ($num > 0) { ?>
+                  <table class="table align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Image</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                        <th class="text-secondary opacity-7"></th>
+                      </tr>
+                    </thead>
+                    <?php
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                      extract($row);
+                      echo "<tbody>";
+                      echo "<tr>";
+                      echo "<td>";
+                      echo "<div class='d-flex px-2 py-3'>";
+                      echo "<div class='d-flex flex-column justify-content-center'>";
+                      echo "<h6 class='mb-0 text-sm'>{$id}</h6>";
+                      echo "</div>";
+                      echo "</div>";
+                    } ?>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-3">
+                        <div>
+                          <?php
+                          if (empty($image)) {
+                            echo "<img src ='uploads/default_product_image.png' width='100px' height='100px'>";
+                          } else {
+                            echo "<img src ='uploads/{$image}' width='100px' height='100px'>";
+                          }
+                          ?>
+                          <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
                         </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Manager</p>
-                        <p class="text-xs text-secondary mb-0">Organization</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                      </td>
-                      <!--<td class="align-middle">
+                      </div>
+                      <!--<p class="text-xs font-weight-bold mb-0">Manager</p>
+                        <p class="text-xs text-secondary mb-0">Organization</p>-->
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <!--<span class="badge badge-sm bg-gradient-success">Online</span>-->
+                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                    </td>
+                    
+                    <!--<td class="align-middle">
                         <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           Edit
                         </a>
                       </td>-->
-                      <td class="align-middle text-center">
-                        <a class="btn btn-link text-info text-gradient px-3 mb-0" href="product_read_one.php"><i class="fas fa-search me-2"></i>View</a>
-                        <a class="btn btn-link text-dark px-3 mb-0" href="product_update.php"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                        <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>Delete</a>
-                      </td>
-                      <td>
-                    </tr>
-                    <!--<tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user2">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                            <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Programator</p>
-                        <p class="text-xs text-secondary mb-0">Developer</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user3">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Laurent Perrier</h6>
-                            <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Executive</p>
-                        <p class="text-xs text-secondary mb-0">Projects</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user4">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Michael Levi</h6>
-                            <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Programator</p>
-                        <p class="text-xs text-secondary mb-0">Developer</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Richard Gran</h6>
-                            <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Manager</p>
-                        <p class="text-xs text-secondary mb-0">Executive</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user6">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Miriam Eric</h6>
-                            <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Programtor</p>
-                        <p class="text-xs text-secondary mb-0">Developer</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>-->
-                  </tbody>
-                </table>
+                    <td class="align-middle text-center">
+                      <a class="btn btn-link text-info text-gradient px-3 mb-0" href="product_read_one.php?id={$id}"><i class="fas fa-search me-2"></i>View</a>
+                      <a class="btn btn-link text-dark px-3 mb-0" href="product_update.php?id={$id}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                      <a class="btn btn-link text-danger text-gradient px-3 mb-0" onclick="delete_user({$id})"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                    </td>
+                    <td>
+
+                      </tr>
+                      </tbody>
+                  </table>
+                <?php } ?>
               </div>
             </div>
           </div>
@@ -673,7 +641,8 @@
               </div>
             </div>
             <div class="col-lg-6">
-              <!--<ul class="nav nav-footer justify-content-center justify-content-lg-end">
+      </footer>
+      <!--<ul class="nav nav-footer justify-content-center justify-content-lg-end">
                 <li class="nav-item">
                   <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
                 </li>
@@ -690,7 +659,7 @@
             </div>
           </div>
         </div>
-      </footer>
+      
     </div>
   </main>
   <div class="fixed-plugin">
@@ -765,36 +734,36 @@
       </div>
     </div>
   </div>-->
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-    //confirm delete record will be here
+      <!--   Core JS Files   -->
+      <script src="../assets/js/core/popper.min.js"></script>
+      <script src="../assets/js/core/bootstrap.min.js"></script>
+      <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+      <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+      <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+          var options = {
+            damping: '0.5'
+          }
+          Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
 
-    // confirm record deletion
-    function delete_user(id) {
-        var answer = confirm('Are you sure?');
-        if (answer) {
+        //confirm delete record will be here
+        // confirm record deletion
+        function delete_user(id) {
+          var answer = confirm('Are you sure?');
+          if (answer) {
             // if user clicked ok,
             // pass the id to delete.php and execute the delete query
             window.location = 'product_delete.php?id=' + id;
+          }
         }
-    }
-  </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/argon-dashboard.min.js?v=2.0.2"></script>
-  
+      </script>
+      <!-- Github buttons -->
+      <script async defer src="https://buttons.github.io/buttons.js"></script>
+      <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+      <script src="../assets/js/argon-dashboard.min.js?v=2.0.2"></script>
+
 </body>
 
 </html>
