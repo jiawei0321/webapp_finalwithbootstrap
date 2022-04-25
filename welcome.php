@@ -20,8 +20,48 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
 </head>
+<?php
+include 'database/connection.php';
+
+try {
+  //fecth customer info
+  $query = "SELECT order_id FROM ordersummary";
+  $stmt = $con->prepare($query);
+  $stmt->execute();
+  $rowNum = $stmt->rowCount();
+
+  //total order
+  $query = "SELECT products.id, name FROM products LEFT JOIN orderdetail ON orderdetail.product_id = products.id WHERE orderdetail.order_id is NULL";
+  $stmt = $con->prepare($query);
+  $stmt->execute();
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $name[] = $row;
+  }
+  //Product yet to purchase
+  $query = "SELECT firstname, lastname FROM customers LEFT JOIN ordersummary ON customers.customer_id = ordersummary.customer_id WHERE ordersummary.customer_id is NULL";
+  $stmt = $con->prepare($query);
+  $stmt->execute();
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $fullname[] = $row;
+  }
+  //Top 3 Selling Product
+  $query = "SELECT COUNT(orderdetail.product_id), name FROM products LEFT JOIN orderdetail ON orderdetail.product_id = products.id GROUP BY products.name ORDER BY COUNT(orderdetail.order_id) DESC LIMIT 3";
+  $stmt = $con->prepare($query);
+  $stmt->execute();
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $topsale[] = $row;
+    //$topsale = $row['name'];
+  }
+}
+
+// show error
+catch (PDOException $exception) {
+  die('ERROR: ' . $exception->getMessage());
+}
+?>
 
 <body class="g-sidenav-show   bg-gray-100">
+  <?php ?>
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
@@ -34,6 +74,40 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Products</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/product_read.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Product List</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Orders</h6>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Customers</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/index.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Log In</span>
+          </a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/customer_create.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Sign Up</span>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link active" href="./pages/dashboard.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -78,7 +152,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/sign-in.html">
+          <a class="nav-link " href="./pages/index.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
             </div>
@@ -100,8 +174,8 @@
         <img class="w-50 mx-auto" src="./assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
         <div class="card-body text-center p-3 w-100 pt-0">
           <div class="docs-info">
-            <h6 class="mb-0">Need help?</h6>
-            <p class="text-xs font-weight-bold mb-0">Scroll to view more</p>
+            <h6 class="mb-0">Scroll here to view more pages</h6>
+            <!--<p class="text-xs font-weight-bold mb-0"></p>-->
           </div>
         </div>
       </div>
@@ -321,7 +395,7 @@
           </div>
         </div>
       </div>
-      <div class="row mt-4">
+      <!--<div class="row mt-4">
         <div class="col-lg-7 mb-lg-0 mb-4">
           <div class="card z-index-2 h-100">
             <div class="card-header pb-0 pt-3 bg-transparent">
@@ -592,7 +666,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -627,7 +701,7 @@
       </footer>
     </div>
   </main>
-  <div class="fixed-plugin">
+  <!--<div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="fa fa-cog py-2"> </i>
     </a>
@@ -642,11 +716,11 @@
             <i class="fa fa-close"></i>
           </button>
         </div>
-        <!-- End Toggle Button -->
+        End Toggle Button
       </div>
       <hr class="horizontal dark my-1">
       <div class="card-body pt-sm-3 pt-0 overflow-auto">
-        <!-- Sidebar Backgrounds -->
+        Sidebar Backgrounds 
         <div>
           <h6 class="mb-0">Sidebar Colors</h6>
         </div>
@@ -660,7 +734,7 @@
             <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
           </div>
         </a>
-        <!-- Sidenav Type -->
+         Sidenav Type 
         <div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
           <p class="text-sm">Choose between 2 different sidenav types.</p>
@@ -670,7 +744,7 @@
           <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default" onclick="sidebarType(this)">Dark</button>
         </div>
         <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
+         Navbar Fixed 
         <div class="d-flex my-3">
           <h6 class="mb-0">Navbar Fixed</h6>
           <div class="form-check form-switch ps-0 ms-auto my-auto">
@@ -698,7 +772,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
   <!--   Core JS Files   -->
   <script src="./assets/js/core/popper.min.js"></script>
   <script src="./assets/js/core/bootstrap.min.js"></script>

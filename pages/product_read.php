@@ -1,17 +1,3 @@
-<!--
-=========================================================
-* Argon Dashboard 2 - v2.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -296,8 +282,8 @@
                         </a>
                       </td>-->
                       <td class="align-middle text-center">
-                        <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>View</a>
-                        <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                        <a class="btn btn-link text-info text-gradient px-3 mb-0" href="product_read_one.php"><i class="fas fa-search me-2"></i>View</a>
+                        <a class="btn btn-link text-dark px-3 mb-0" href="product_update.php"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
                         <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>Delete</a>
                       </td>
                       <td>
@@ -700,7 +686,7 @@
                 <li class="nav-item">
                   <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
                 </li>
-              </ul>-->
+              </ul>
             </div>
           </div>
         </div>
@@ -722,11 +708,11 @@
             <i class="fa fa-close"></i>
           </button>
         </div>
-        <!-- End Toggle Button -->
+        <! End Toggle Button 
       </div>
       <hr class="horizontal dark my-1">
       <div class="card-body pt-sm-3 pt-0 overflow-auto">
-        <!-- Sidebar Backgrounds -->
+        <! Sidebar Backgrounds 
         <div>
           <h6 class="mb-0">Sidebar Colors</h6>
         </div>
@@ -740,7 +726,7 @@
             <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
           </div>
         </a>
-        <!-- Sidenav Type -->
+         Sidenav Type 
         <div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
           <p class="text-sm">Choose between 2 different sidenav types.</p>
@@ -750,7 +736,7 @@
           <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default" onclick="sidebarType(this)">Dark</button>
         </div>
         <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
+         Navbar Fixed 
         <div class="d-flex my-3">
           <h6 class="mb-0">Navbar Fixed</h6>
           <div class="form-check form-switch ps-0 ms-auto my-auto">
@@ -778,7 +764,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
