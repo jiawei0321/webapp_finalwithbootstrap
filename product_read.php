@@ -4,26 +4,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/shopfavicon.png">
-  <link rel="icon" type="image/png" href="../assets/img/shopfavicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/shopfavicon.png">
+  <link rel="icon" type="image/png" href="assets/img/shopfavicon.png">
   <title>
     Product_read
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
+  <link id="pagestyle" href="assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <?php
 // include database connection
-include '../database/connection.php';
+include 'database/connection.php';
 
 // delete message prompt will be here
 $action = isset($_GET['action']) ? $_GET['action'] : "";
@@ -50,56 +50,6 @@ $stmt->execute();
 // this is how to get number of rows returned
 //see total how many product
 $num = $stmt->rowCount();
-
-// link to create record form
-echo "<a href='product_create.php' class='btn btn-primary m-b-1em'>Create New Product</a>";
-
-//check if more than 0 record found
-if ($num > 0) {
-
-  // data from database will be here
-  echo "<table class='table table-hover table-responsive table-bordered'>"; //start table
-
-  //creating our table heading
-  echo "<tr>";
-  echo "<th>ID</th>";
-  echo "<th>Name</th>";
-  echo "<th>Description</th>";
-  echo "<th>Price</th>";
-  echo "<th>Image</th>";
-  echo "<th>Action</th>";
-  echo "</tr>";
-
-  // table body will be here
-  // retrieve our table contents
-  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    // extract row
-    // this will make $row['firstname'] to just $firstname only
-    extract($row);
-    // creating new table row per record
-    echo "<tr>";
-    echo "<td>{$id}</td>";
-    echo "<td>{$name}</td>";
-    echo "<td>{$description}</td>";
-    echo "<td>{$price}</td>";
-    echo "<td>";
-    if (empty($image)) {
-      echo "<img src ='uploads/default_product_image.png' width='100px' height='100px'>";
-    } else {
-      echo "<img src ='uploads/{$image}' width='100px' height='100px'>";
-    }
-    echo "</td>";
-    echo "<td>";
-  }
-
-
-  // end table
-  echo "</table>";
-}
-// if no records found
-else {
-  echo "<div class='alert alert-danger'>No records found.</div>";
-}
 ?>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -108,7 +58,7 @@ else {
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">Argon Dashboard 2</span>
       </a>
     </div>
@@ -116,7 +66,7 @@ else {
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link " href="../pages/dashboard.html">
+          <a class="nav-link " href="pages/dashboard.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
             </div>
@@ -124,7 +74,7 @@ else {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="../pages/tables.html">
+          <a class="nav-link active" href="pages/tables.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
             </div>
@@ -132,7 +82,7 @@ else {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/billing.html">
+          <a class="nav-link " href="pages/billing.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
@@ -140,7 +90,7 @@ else {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/virtual-reality.html">
+          <a class="nav-link " href="pages/virtual-reality.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
@@ -148,7 +98,7 @@ else {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/rtl.html">
+          <a class="nav-link " href="pages/rtl.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
             </div>
@@ -159,7 +109,7 @@ else {
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/profile.html">
+          <a class="nav-link " href="pages/profile.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
@@ -167,7 +117,7 @@ else {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-in.html">
+          <a class="nav-link " href="pages/sign-in.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
             </div>
@@ -175,7 +125,7 @@ else {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-up.html">
+          <a class="nav-link " href="pages/sign-up.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-info text-sm opacity-10"></i>
             </div>
@@ -186,7 +136,7 @@ else {
     </div>
     <div class="sidenav-footer mx-3 ">
       <div class="card card-plain shadow-none" id="sidenavCard">
-        <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+        <img class="w-50 mx-auto" src="assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
         <div class="card-body text-center p-3 w-100 pt-0">
           <div class="docs-info">
             <h6 class="mb-0">Need help?</h6>
@@ -353,45 +303,38 @@ else {
                       echo "<h6 class='mb-0 text-sm'>{$id}</h6>";
                       echo "</div>";
                       echo "</div>";
-                    } ?>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-3">
-                        <div>
-                          <?php
+                    
+                    echo "</td>";
+                    echo "<td>";
+                      echo "<div class='d-flex px-2 py-3'>";
+                        "<div>";
                           if (empty($image)) {
-                            echo "<img src ='uploads/default_product_image.png' width='100px' height='100px'>";
+                            echo "<img src ='uploads/default_product_image.png' class='avatar' width='100px' height='100px'>";
                           } else {
                             echo "<img src ='uploads/{$image}' width='100px' height='100px'>";
                           }
-                          ?>
-                          <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                        </div>
-                      </div>
-                      <!--<p class="text-xs font-weight-bold mb-0">Manager</p>
-                        <p class="text-xs text-secondary mb-0">Organization</p>-->
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <!--<span class="badge badge-sm bg-gradient-success">Online</span>-->
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    
-                    <!--<td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>-->
-                    <td class="align-middle text-center">
-                      <a class="btn btn-link text-info text-gradient px-3 mb-0" href="product_read_one.php?id={$id}"><i class="fas fa-search me-2"></i>View</a>
-                      <a class="btn btn-link text-dark px-3 mb-0" href="product_update.php?id={$id}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                      <a class="btn btn-link text-danger text-gradient px-3 mb-0" onclick="delete_user({$id})"><i class="far fa-trash-alt me-2"></i>Delete</a>
-                    </td>
+                          //echo "<img src='../assets/img/team-2.jpg' class='avatar avatar-sm me-3' alt='user1'>";
+                        echo "</div>";
+                      echo "</div>";
+                      
+                    echo "</td>";
+                    echo "<td class='align-middle text-center text-sm'>";
+                      //<span class="badge badge-sm bg-gradient-success">Online</span>
+                      echo "<span class='text-secondary text-xs font-weight-bold'>{$name}</span>";
+                    echo "</td>";
+                    echo "<td class='align-middle text-center'>";
+                      echo"<span class='text-secondary text-xs font-weight-bold'>{$description}</span>";
+                    echo "</td>";
+                    echo "<td class'align-middle text-center'>";
+                      echo"<span class='text-secondary text-xs font-weight-bold'>{$price}</span>";
+                    echo "</td>";
+                   
+                    echo "<td class='align-middle text-center'>";
+                      echo "<a class='btn btn-link text-info text-gradient px-3 mb-0' href='product_read_one.php?id={$id}'><i class='fas fa-search me-2'></i>View</a>";
+                      echo "<a class='btn btn-link text-dark px-3 mb-0' href='product_update.php?id={$id}><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>";
+                      echo "<a class='btn btn-link text-danger text-gradient px-3 mb-0' onclick='delete_user({$id})'><i class='far fa-trash-alt me-2'></i>Delete</a>";
+                    echo "</td>";
+                     } ?>
                     <td>
 
                       </tr>
@@ -735,10 +678,10 @@ else {
     </div>
   </div>-->
       <!--   Core JS Files   -->
-      <script src="../assets/js/core/popper.min.js"></script>
-      <script src="../assets/js/core/bootstrap.min.js"></script>
-      <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-      <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+      <script src="assets/js/core/popper.min.js"></script>
+      <script src="assets/js/core/bootstrap.min.js"></script>
+      <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
+      <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
       <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -762,7 +705,7 @@ else {
       <!-- Github buttons -->
       <script async defer src="https://buttons.github.io/buttons.js"></script>
       <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-      <script src="../assets/js/argon-dashboard.min.js?v=2.0.2"></script>
+      <script src="assets/js/argon-dashboard.min.js?v=2.0.2"></script>
 
 </body>
 
