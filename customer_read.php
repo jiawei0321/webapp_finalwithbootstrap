@@ -308,10 +308,10 @@ $num = $stmt->rowCount();
                     echo "<td>";
                       echo "<div class='d-flex px-2 py-3'>";
                         "<div>";
-                          if ($product_image == "") {
+                          if (empty($image)) {
                             echo "<img src ='uploads/default_product_image.png' class='avatar' width='100px' height='100px'>";
                           } else {
-                            echo "<img src ='uploads/{$product_image}' class='avatar' width='100px' height='100px'>";
+                            echo "<img src ='uploads/{$image}' width='100px' height='100px'>";
                           }
                           //echo "<img src='../assets/img/team-2.jpg' class='avatar avatar-sm me-3' alt='user1'>";
                         echo "</div>";

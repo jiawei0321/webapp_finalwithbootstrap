@@ -79,7 +79,7 @@ catch (PDOException $exception) {
         <li class="nav-item">
           <a class="nav-link " href="product_read.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              <i class="ni ni-single-copy-04 text-warning text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Product List</span>
           </a>
@@ -87,7 +87,7 @@ catch (PDOException $exception) {
         <li class="nav-item">
           <a class="nav-link " href="product_create.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              <i class="ni ni-shop text-warning text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Product Create</span>
           </a>
@@ -95,7 +95,7 @@ catch (PDOException $exception) {
         <li class="nav-item">
           <a class="nav-link " href="product_update.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              <i class="ni ni-active-40 text-warning text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Product Update</span>
           </a>
@@ -103,10 +103,58 @@ catch (PDOException $exception) {
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Orders</h6>
         </li>
+        <li class="nav-item">
+          <a class="nav-link " href="product_update.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-copy-04 text-success text-lg opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Order List</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="product_create.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-cart text-success text-lg opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Order Create</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="product_update.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-active-40 text-success text-lg opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Order Update</span>
+          </a>
+        </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Customers</h6>
         </li>
         <li class="nav-item">
+          <a class="nav-link " href="product_update.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="ni ni-single-copy-04 text-info text-lg opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Customer List</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="product_create.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-02 text-info text-lg opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Customer Sign-up</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="product_update.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-active-40 text-info text-lg opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Customer Update</span>
+          </a>
+        </li>
+        <!--<li class="nav-item">
           <a class="nav-link " href="pages/index.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
@@ -182,7 +230,7 @@ catch (PDOException $exception) {
             <span class="nav-link-text ms-1">Sign Up</span>
           </a>
         </li>
-      </ul>
+      </ul>-->
     </div>
     <div class="sidenav-footer mx-3 ">
       <div class="card card-plain shadow-none" id="sidenavCard">
@@ -218,7 +266,7 @@ catch (PDOException $exception) {
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sign In</span>
               </a>
-            </li>
+            </li>-->
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">
@@ -228,7 +276,7 @@ catch (PDOException $exception) {
                 </div>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center">
+            <!--<li class="nav-item px-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0">
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
@@ -372,12 +420,12 @@ catch (PDOException $exception) {
                   <div class="numbers">
                     <p class="text-sm mb-4 text-uppercase font-weight-bold">Customer without Order</p>
                     <h5 class="font-weight-bolder">
-                    <?php
-            foreach ($fullname  as $fn) {
-                echo $fn['firstname'] . $fn['lastname'] . "<br>";
-            }
-            //echo $fullname 
-            ?>
+                      <?php
+                      foreach ($fullname  as $fn) {
+                        echo $fn['firstname'] . $fn['lastname'] . "<br>";
+                      }
+                      //echo $fullname 
+                      ?>
                     </h5>
                     <!--<p class="mb-0">
                       <span class="text-danger text-sm font-weight-bolder">-2%</span>
@@ -696,7 +744,10 @@ catch (PDOException $exception) {
           </div>
         </div>
       </div>-->
-      <footer class="footer pt-3  ">
+      <?php
+      include("footer.php");
+      ?>
+      <!--<footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
@@ -710,7 +761,7 @@ catch (PDOException $exception) {
               </div>
             </div>
             <div class="col-lg-6">
-      </footer>
+      </footer>-->
     </div>
   </main>
   <!--<div class="fixed-plugin">
