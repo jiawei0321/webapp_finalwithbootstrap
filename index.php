@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="assets/img/shopfavicon.png">
   <title>
     Login
   </title>
@@ -49,11 +49,11 @@ if ($_POST) {
 
 
     if ($num == 0) {
-      echo "<div class='alert alert-danger'>User not found.</div>";
+      echo "<div class='alert alert-danger' role='alert'>User not found.</div>";
     } else if ($row['password'] != $password) {
-      echo "<div class='alert alert-danger'>Password is incorrect.</div>";
+      echo "<div class='alert alert-danger' role='alert'>Password is incorrect.</div>";
     } else if ($row['status'] != "active") {
-      echo "<div class='alert alert-danger'>This account is disabled.</div>";
+      echo "<div class='alert alert-danger' role='alert'>This account is disabled.</div>";
     } else {
       header("location:pages/welcome.php");
     }
@@ -152,7 +152,7 @@ if ($_POST) {
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <a href="nonav_customer_create.php" class="text-primary text-gradient font-weight-bold">Create a customer account</a>
                   </p>
                 </div>
               </div>
