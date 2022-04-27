@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +42,13 @@ if ($_POST) {
                 }else{*/
     // include database connection
 
+    // delete message prompt will be here
+    $action = isset($_GET['action']) ? $_GET['action'] : "";
+
+    // if it was redirected from delete.php
+    if ($action == 'nologin') {
+      echo "<div class='alert alert-success'>Product record was deleted.</div>";
+    }
     $query = "SELECT username, password, status FROM customers WHERE username = ?";
     // prepare query for execution
     $stmt = $con->prepare($query);
@@ -55,7 +65,9 @@ if ($_POST) {
     } else if ($row['status'] != "active") {
       echo "<div class='alert alert-danger' role='alert'>This account is disabled.</div>";
     } else {
-      header("location:pages/welcome.php");
+      // Set session variables
+      $_SESSION["username"] = $_POST['username'];
+      header("Location:welcome.php");
     }
     //}
   }
