@@ -62,11 +62,12 @@ catch (PDOException $exception) {
 
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <!--nav start-->
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/index.html " target="_blank">
-        <img src="assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="assets/img/icon-white-bg.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">JW SHOP</span>
       </a>
     </div>
@@ -229,8 +230,8 @@ catch (PDOException $exception) {
             </div>
             <span class="nav-link-text ms-1">Sign Up</span>
           </a>
-        </li>
-      </ul>-->
+        </li>-->
+      </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
       <div class="card card-plain shadow-none" id="sidenavCard">
