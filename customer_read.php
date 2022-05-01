@@ -115,7 +115,7 @@ $num = $stmt->rowCount();
                     echo "</td>";
                     echo "<td>";
                     echo "<div class='d-flex px-2 py-3'>";
-                    "<div>";
+                    echo "<div>";
                     if ($product_image == "") {
                       echo "<img src ='uploads/default_product_image.png' class='avatar' width='100px' height='100px'>";
                     } else {
