@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/shopfavicon.png">
-  <link rel="icon" type="image/png" href="assets/img/shopfavicon.png">
+  <?php
+  include 'headicon.php';
+  ?>
   <title>
     Product_read
   </title>
@@ -30,14 +29,28 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 
 // if it was redirected from delete.php
 if ($action == 'deleted') {
-  echo "<div class='alert alert-success'>Product record was deleted.</div>";
+  //echo "<div class='alert alert-success'>Product record was deleted.</div>";
+  echo "<div class='container me-5 pt-3'>";
+  echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
+  echo "<p class='text-white mb-0'>";
+  echo "<strong>Yeah!</strong> Product record was deleted.";
+  echo "</p>";
+  echo "</div>";
+  echo "</div>";
 }
 
 if ($action == 'saved') {
   echo "<div class='alert alert-success'>Product record was saved.</div>";
 }
 if ($action == 'deleteerror') {
-  echo "<div class='alert alert-danger'>Product record unable to delete. Only never purchased product can be deleted.</div>";
+  //echo "<div class='alert alert-danger'>Product record unable to delete. Only never purchased product can be deleted.</div>";
+  echo "<div class='container me-5 pt-3'>";
+  echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+  echo "<p class='text-white mb-0'>";
+  echo "<strong>Product record unable to delete! </strong> Only never purchased product can be deleted.";
+  echo "</p>";
+  echo "</div>";
+  echo "</div>";
 }
 
 // select all data

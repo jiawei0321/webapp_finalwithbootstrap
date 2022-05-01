@@ -49,7 +49,7 @@ if ($_POST) {
     if ($action == 'nologin') {
       echo "<div class='alert alert-success'>Please log in first.</div>";
     }
-    
+
     $query = "SELECT username, password, status FROM customers WHERE username = ?";
     // prepare query for execution
     $stmt = $con->prepare($query);
@@ -60,7 +60,15 @@ if ($_POST) {
 
 
     if ($num == 0) {
-      echo "<div class='alert alert-danger' role='alert'>User not found.</div>";
+      //echo "<div class='alert alert-danger' role='alert'>User not found.</div>";
+      echo "<div class='container pt-3'>";
+      echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
+      echo "<p class='text-white mb-0'>";
+      echo "<strong>Oh No! </strong> User not found.";
+      echo "</p>";
+      echo "</div>";
+      echo "</div>";
+
     } else if ($row['password'] != $password) {
       echo "<div class='alert alert-danger' role='alert'>Password is incorrect.</div>";
     } else if ($row['status'] != "active") {
