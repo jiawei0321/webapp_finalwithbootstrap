@@ -37,12 +37,12 @@ if ($action == 'saved') {
   echo "<div class='alert alert-success'>Customer record was saved.</div>";
 }
 if ($action == 'deleteerror') {
-  echo "<div class='alert alert-danger'>Customer record unable to delete. Only never purchased product can be deleted.</div>";
+  echo "<div class='alert alert-danger'>Customer record unable to delete. Only customer who never purchase product can be deleted.</div>";
 }
 
 // select all data
 
-$query = "SELECT id, name, description, price, product_image FROM products ORDER BY id DESC";
+$query = "SELECT customer_id, username, email, firstname, lastname, gender, cust_image FROM customers ORDER BY customer_id ASC";
 //prepare above variable
 $stmt = $con->prepare($query);
 $stmt->execute();
@@ -91,11 +91,12 @@ $num = $stmt->rowCount();
                   <table class="table align-items-center mb-0">
                     <thead>
                       <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product ID</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Image</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Profile Image</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Firstname</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Lastname</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Gender</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                         <th class="text-secondary opacity-7"></th>
                       </tr>
@@ -108,7 +109,7 @@ $num = $stmt->rowCount();
                     echo "<td>";
                     echo "<div class='d-flex px-4 py-3'>";
                     echo "<div class='d-flex flex-column justify-content-center'>";
-                    echo "<h6 class='mb-0 text-sm'>{$id}</h6>";
+                    echo "<h6 class='mb-0 text-sm'>{$customer_id}</h6>";
                     echo "</div>";
                     echo "</div>";
 
@@ -116,10 +117,10 @@ $num = $stmt->rowCount();
                     echo "<td>";
                     echo "<div class='d-flex px-2 py-3'>";
                     echo "<div>";
-                    if ($product_image == "") {
-                      echo "<img src ='uploads/default_product_image.png' class='avatar' width='100px' height='100px'>";
+                    if ($cust_image == "") {
+                      echo "<img src ='uploads/default_profile_image.jpg' class='avatar' width='100px' height='100px'>";
                     } else {
-                      echo "<img src ='uploads/{$product_image}' class='avatar' width='100px' height='100px'>";
+                      echo "<img src ='uploads/{$cust_image}' class='avatar' width='100px' height='100px'>";
                     }
                     //echo "<img src='../assets/img/team-2.jpg' class='avatar avatar-sm me-3' alt='user1'>";
                     echo "</div>";
@@ -128,19 +129,23 @@ $num = $stmt->rowCount();
                     echo "</td>";
                     echo "<td class='align-middle text-center text-sm'>";
                     //<span class="badge badge-sm bg-gradient-success">Online</span>
-                    echo "<span class='text-secondary text-xs font-weight-bold'>{$name}</span>";
+                    echo "<span class='text-secondary text-xs font-weight-bold'>{$username}</span>";
                     echo "</td>";
                     echo "<td class='align-middle text-center'>";
-                    echo "<span class='text-secondary text-xs font-weight-bold'>{$description}</span>";
+                    echo "<span class='text-secondary text-xs font-weight-bold'>{$firstname}</span>";
                     echo "</td>";
                     echo "<td class'align-middle text-center'>";
-                    echo "<span class='text-secondary text-xs font-weight-bold'>{$price}</span>";
+                    echo "<span class='text-secondary text-xs font-weight-bold'>{$lastname}</span>";
+                    echo "</td>";
+                    echo "</td>";
+                    echo "<td class'align-middle text-center'>";
+                    echo "<span class='text-secondary text-xs font-weight-bold'>{$gender}</span>";
                     echo "</td>";
 
                     echo "<td class='align-middle text-center'>";
-                    echo "<a class='btn btn-link text-info text-gradient px-3 mb-0' href='product_read_one.php?id={$id}'><i class='fas fa-search me-2'></i>View</a>";
-                    echo "<a class='btn btn-link text-dark px-3 mb-0' href='product_update.php?id={$id}><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>";
-                    echo "<a class='btn btn-link text-danger text-gradient px-3 mb-0' onclick='delete_user({$id})'><i class='far fa-trash-alt me-2'></i>Delete</a>";
+                    echo "<a class='btn btn-link text-info text-gradient px-3 mb-0' href='customer_read_one.php?id={$customer_id}'><i class='fas fa-search me-2'></i>View</a>";
+                    echo "<a class='btn btn-link text-dark px-3 mb-0' href='customer_update.php?id={$customer_id}><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>";
+                    echo "<a class='btn btn-link text-danger text-gradient px-3 mb-0' onclick='delete_user({$customer_id})'><i class='far fa-trash-alt me-2'></i>Delete</a>";
                     echo "</td>";
                   }
                   //</tr>
@@ -405,7 +410,7 @@ $num = $stmt->rowCount();
           if (answer) {
             // if user clicked ok,
             // pass the id to delete.php and execute the delete query
-            window.location = 'product_delete.php?id=' + id;
+            window.location = 'customer_delete.php?id=' + id;
           }
         }
       </script>
