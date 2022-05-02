@@ -135,7 +135,8 @@
                         echo "<div class='alert alert-danger'>Please only key in letters in name</div>";
                     }
                 } else {
-                    echo "<div class='alert alert-danger'>Please fill in name, description and price.</div>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in name, description and price.</p></div>";
+
                 }
             }
             ?>
@@ -198,7 +199,6 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/argon-dashboard.min.js?v=2.0.2"></script>
-    </main>
 </body>
 
 </html>

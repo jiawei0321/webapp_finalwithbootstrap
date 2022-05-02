@@ -26,6 +26,21 @@ session_start();
 <?php
 include 'database/connection.php';
 
+
+// if it was redirected from delete.php
+$action = isset($_GET['action']) ? $_GET['action'] : "";
+// if it was redirected from delete.php
+if ($action == 'nologin') {
+  echo "<div class='container pt-3'>";
+  echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please log in first to browse the website.</p></div>";
+  echo "</div>";
+}
+if ($action == 'nonavsignin') {
+  echo "<div class='container pt-3'>";
+  echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'><strong>You have created an account.</strong> Log In to start shopping.</p></div>";
+  echo "</div>";
+}
+
 //if submit button is pressed only do these
 if ($_POST) {
 
@@ -43,12 +58,6 @@ if ($_POST) {
     // include database connection
 
     // delete message prompt will be here
-    $action = isset($_GET['action']) ? $_GET['action'] : "";
-
-    // if it was redirected from delete.php
-    if ($action == 'nologin') {
-      echo "<div class='alert alert-success'>Please log in first.</div>";
-    }
 
     $query = "SELECT username, password, status FROM customers WHERE username = ?";
     // prepare query for execution
@@ -62,11 +71,7 @@ if ($_POST) {
     if ($num == 0) {
       //echo "<div class='alert alert-danger' role='alert'>User not found.</div>";
       echo "<div class='container pt-3'>";
-      echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-      echo "<p class='text-white mb-0'>";
-      echo "<strong>Oh No! </strong> User not found.";
-      echo "</p>";
-      echo "</div>";
+      echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'><strong>Oh No! </strong> User not found.</p></div>";
       echo "</div>";
 
     } else if ($row['password'] != $password) {

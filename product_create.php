@@ -47,9 +47,7 @@
                         </li>
                 </div>
             </nav>
-            <?php
-            include 'nav.php';
-            ?>
+
             <?php
             // include database connection
             include 'database/connection.php';
@@ -159,21 +157,15 @@
                                 die('ERROR: ' . $exception->getMessage());
                             }
                         } else {
-                            echo "<div class='container me-5 pt-3'>";
-                            echo "<p class='text-white mb-0'>";
                             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Please only key in number in price</div>";
-                            echo "</p>";
-                            echo "</div>";
-                            echo "</div>";
                         }
                     } else {
                         echo "<div class='alert alert-danger'>Please only key in letters in name</div>";
                     }
                 } else {
-                    echo "<div class='container me-5 pt-3'>";
+                    //echo "<div class='container me-5 pt-3'>";
                     echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in name, description and price.</p></div>";
-                    echo "</div>";
-                    echo "</div>";
+                    //echo "</div>";
                 }
             }
             ?>
@@ -181,6 +173,9 @@
             <!-- End Navbar -->
             <!-- note:py-4 control distance above the button-->
 
+            <?php
+            include 'nav.php';
+            ?>
             <div class="card mb-4">
                 <div class="card-body px-7 py-5">
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
@@ -237,7 +232,6 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/argon-dashboard.min.js?v=2.0.2"></script>
-    </main>
 </body>
 
 </html>
