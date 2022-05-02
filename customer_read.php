@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/shopfavicon.png">
-  <link rel="icon" type="image/png" href="assets/img/shopfavicon.png">
+<?php
+  include 'headicon.php';
+  ?>
   <title>
     Customer_List
   </title>
@@ -134,11 +133,11 @@ $num = $stmt->rowCount();
                     echo "<td class='align-middle text-center'>";
                     echo "<span class='text-secondary text-xs font-weight-bold'>{$firstname}</span>";
                     echo "</td>";
-                    echo "<td class'align-middle text-center'>";
+                    echo "<td class='align-middle text-center'>";
                     echo "<span class='text-secondary text-xs font-weight-bold'>{$lastname}</span>";
                     echo "</td>";
                     echo "</td>";
-                    echo "<td class'align-middle text-center'>";
+                    echo "<td class='align-middle text-center'>";
                     echo "<span class='text-secondary text-xs font-weight-bold'>{$gender}</span>";
                     echo "</td>";
 
