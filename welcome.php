@@ -84,6 +84,7 @@ catch (PDOException $exception) {
           </ol>
           <h3 class="font-weight-bolder text-white mb-0">Welcome</h3>
         </nav>
+        <main class="main-content position-relative border-radius-lg ">
         <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           </div>

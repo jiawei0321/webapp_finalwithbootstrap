@@ -121,7 +121,8 @@ $num = $stmt->rowCount();
 
                                         echo "<td class='align-middle text-center'>";
                                         echo "<a class='btn btn-link text-info text-gradient px-3 mb-0' href='order_detail.php?id={$order_id}'><i class='fas fa-search me-2'></i>View</a>";
-                                        echo "<a class='btn btn-link text-dark px-3 mb-0' href='order_update.php?id={$order_id}><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>";
+                                        echo "<a class='btn btn-link text-dark text-gradient px-3 mb-0' href='product_update.php?id={$order_id}'><i class='fas fa-pencil-alt text-dark me-2'></i>Edit</a>";
+                                        //echo "<a class='btn btn-link text-dark px-3 mb-0' href='order_update.php?id={$order_id}><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>";
                                         echo "<a class='btn btn-link text-danger text-gradient px-3 mb-0' onclick='delete_user({$order_id})'><i class='far fa-trash-alt me-2'></i>Delete</a>";
                                         echo "</td>";
                                     }
