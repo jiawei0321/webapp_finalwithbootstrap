@@ -21,11 +21,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <?php
-if (isset($_GET['id'])) {
-  $id = $_GET['id'];
-} else {
-  die('ERROR: Record ID not found.');
-}
 
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
