@@ -29,14 +29,20 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 
 // if it was redirected from delete.php
 if ($action == 'deleted') {
-  echo "<div class='alert alert-success'>Customer record was deleted.</div>";
+  echo "<div class='container me-5 pt-3'>";
+  echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Customer record was deleted.</p></div>";
+  echo "</div>";
 }
 
 if ($action == 'saved') {
-  echo "<div class='alert alert-success'>Customer record was saved.</div>";
+  echo "<div class='container me-5 pt-3'>";
+  echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Customer record was saved.</p></div>";
+  echo "</div>";
 }
 if ($action == 'deleteerror') {
-  echo "<div class='alert alert-danger'>Customer record unable to delete. Only customer who never purchase product can be deleted.</div>";
+  echo "<div class='container me-5 pt-3'>";
+  echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Customer record unable to delete. Only customer who never purchase product can be deleted.</p></div>";
+  echo "</div>";
 }
 
 // select all data

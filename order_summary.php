@@ -30,14 +30,20 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 
 // if it was redirected from delete.php
 if ($action == 'deleted') {
-    echo "<div class='alert alert-success'>Product record was deleted.</div>";
+    echo "<div class='container me-5 pt-3'>";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was deleted.</p></div>";
+    echo "</div>";
 }
 
 if ($action == 'saved') {
-    echo "<div class='alert alert-success'>Product record was saved.</div>";
+    echo "<div class='container me-5 pt-3'>";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was saved.</p></div>";
+    echo "</div>";
 }
 if ($action == 'deleteerror') {
-    echo "<div class='alert alert-danger'>Product record unable to delete. Only never purchased product can be deleted.</div>";
+    echo "<div class='container me-5 pt-3'>";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record unable to delete. Only never purchased product can be deleted.</p></div>";
+    echo "</div>";
 }
 
 // select all data
@@ -121,7 +127,7 @@ $num = $stmt->rowCount();
 
                                         echo "<td class='align-middle text-center'>";
                                         echo "<a class='btn btn-link text-info text-gradient px-3 mb-0' href='order_detail.php?id={$order_id}'><i class='fas fa-search me-2'></i>View</a>";
-                                        echo "<a class='btn btn-link text-dark text-gradient px-3 mb-0' href='product_update.php?id={$order_id}'><i class='fas fa-pencil-alt text-dark me-2'></i>Edit</a>";
+                                        echo "<a class='btn btn-link text-dark text-gradient px-3 mb-0' href='order_update.php?id={$order_id}'><i class='fas fa-pencil-alt text-dark me-2'></i>Edit</a>";
                                         //echo "<a class='btn btn-link text-dark px-3 mb-0' href='order_update.php?id={$order_id}><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>";
                                         echo "<a class='btn btn-link text-danger text-gradient px-3 mb-0' onclick='delete_user({$order_id})'><i class='far fa-trash-alt me-2'></i>Delete</a>";
                                         echo "</td>";

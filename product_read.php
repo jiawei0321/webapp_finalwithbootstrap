@@ -31,11 +31,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 if ($action == 'deleted') {
   //echo "<div class='alert alert-success'>Product record was deleted.</div>";
   echo "<div class='container me-5 pt-3'>";
-  echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
-  echo "<p class='text-white mb-0'>";
-  echo "<strong>Yeah!</strong> Product record was deleted.";
-  echo "</p>";
-  echo "</div>";
+  echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was deleted.</p></div>";
   echo "</div>";
 }
 

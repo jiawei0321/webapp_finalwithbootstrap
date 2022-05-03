@@ -224,11 +224,11 @@
                                 </tr>
                                 <tr>
                                     <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Password</th>
-                                    <td><textarea name='password' class='form-control' value="<?php echo $password; ?>"></textarea></td>
+                                    <td><input type='password' name='password' class='form-control' value="<?php echo $password; ?>" />
                                 </tr>
                                 <tr>
                                     <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Confirm Password</td>
-                                    <td><input type='confirmpassword' name='confirmpassword' class='form-control' value="<?php echo $confirmpassword; ?>" />
+                                    <td><input type='password' name='confirmpassword' class='form-control' value="<?php echo $confirmpassword; ?>" />
                                     </td>
                                 </tr>
                                 <tr>
