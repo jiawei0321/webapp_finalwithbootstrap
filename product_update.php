@@ -90,7 +90,11 @@
             <?php
             // check if form was submitted
             if ($_POST) {
-
+                // posted values
+                $name = htmlspecialchars(strip_tags($_POST['name']));
+                $description = htmlspecialchars(strip_tags($_POST['description']));
+                $price = htmlspecialchars(strip_tags($_POST['price']));
+                
                 if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price'])) {
 
                     if (ctype_alpha($_POST['name'])) {
@@ -106,11 +110,6 @@
                         price=:price WHERE id = :id";
                                 // prepare query for excecution
                                 $stmt = $con->prepare($query);
-
-                                // posted values
-                                $name = htmlspecialchars(strip_tags($_POST['name']));
-                                $description = htmlspecialchars(strip_tags($_POST['description']));
-                                $price = htmlspecialchars(strip_tags($_POST['price']));
 
                                 // bind the parameters
                                 $stmt->bindParam(':name', $name);
@@ -136,7 +135,6 @@
                     }
                 } else {
                     echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in name, description and price.</p></div>";
-
                 }
             }
             ?>
@@ -152,21 +150,21 @@
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="post">
                         <table class='table table-hover table-responsive'>
                             <tr>
-                            <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Name</th>
+                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Name</th>
                                 <td><input type='text' name='name' value="<?php echo htmlspecialchars($name, ENT_QUOTES);  ?>" class='form-control' /></td>
                             </tr>
                             <tr>
-                            <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Description</th>
+                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Description</th>
                                 <td><textarea name='description' class='form-control'><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></textarea></td>
                             </tr>
                             <tr>
-                            <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Price</th>
+                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Price</th>
                                 <td><input type='text' name='price' value="<?php echo htmlspecialchars($price, ENT_QUOTES);  ?>" class='form-control' /></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>
-                                   
+
                                     <input type='submit' value='Save Changes' class='btn btn-primary btn bg-gradient-primary mb-0' />
                                     <a class="btn bg-gradient-dark mb-0" href="product_read.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Product List</a>
                                 </td>

@@ -6,7 +6,7 @@
     include 'headicon.php';
     ?>
     <title>
-        Update_Customer_Info
+        Update_Order_Info
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -30,10 +30,10 @@
                 <div class="container-fluid py-1 px-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Customers</a></li>
-                            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Create Customer Info</li>
+                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Orders</a></li>
+                            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Update Order Info</li>
                         </ol>
-                        <h3 class="font-weight-bolder text-white mb-0">Update Customer Info</h3>
+                        <h3 class="font-weight-bolder text-white mb-0">Update Order Info</h3>
                     </nav>
                     <main class="main-content position-relative border-radius-lg ">
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -48,139 +48,111 @@
                 </div>
             </nav>
             <?php
-            // get passed parameter value, in this case, the record ID
-            // isset() is a PHP function used to verify if a value is there or not
-            $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
-
             //include database connection
             include 'database/connection.php';
             include 'function/function.php';
 
-            if (!$_POST) {
-                // read current record's data
+            $id = isset($_GET['id']) ? ($_GET['id']) : die('ERROR: Record ID not found.');
 
+            if (!$_POST) {
+
+                // read current record's data
                 try {
                     // prepare select query
-                    $query = "SELECT username, password, email, firstname, lastname, YEAR(dob) as year, MONTH(dob) as month, DAY(dob) as day, gender, status FROM customers WHERE customer_id = ? ";
+                    $query = "SELECT order_id, product_id, quantity, orderdetail_id FROM orderdetail WHERE order_id = ? ";
+
+                    // prepare query
                     $stmt = $con->prepare($query);
 
-                    // this is the first question mark
+                    // bindparams
                     $stmt->bindParam(1, $id);
 
-                    // execute our query
+                    // execute query
                     $stmt->execute();
 
                     // store retrieved row to a variable
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    // values to fill up our form
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        // values to fill up our form
+                        $orderdetail_id[] = $row['orderdetail_id'];
+                        $product_id[] = $row['product_id'];
+                        $quantity[] = $row['quantity'];
+                    }
 
-                    $username = $row['username'];
-                    $password = $row['password'];
-                    $confirmpassword = $row['password'];
-                    $email = $row['email'];
-                    $firstname = $row['firstname'];
-                    $lastname = $row['lastname'];
-                    $yy = $row['year'];
-                    $mm = $row['month'];
-                    $dd = $row['day'];
-                    $gender = isset($row['gender']) ? $row['gender'] : "";
-                    $status = isset($row['status']) ? $row['status'] : "";
+                    $query = "SELECT customer_id FROM ordersummary WHERE order_id = ?";
+                    // prepare query
+                    $stmt = $con->prepare($query);
+
+                    // bindparams
+                    $stmt->bindParam(1, $id);
+
+                    // execute query
+                    $stmt->execute();
+
+                    // store retrieved row to a variable
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        // values to fill up our form
+                        $customer_id = $row['customer_id'];
+                    }
                 }
-
                 // show error
                 catch (PDOException $exception) {
                     die('ERROR: ' . $exception->getMessage());
                 }
             }
             ?>
-
-            <!-- HTML form to update record will be here -->
-            <!-- PHP post to update record will be here -->
             <?php
-            // check if form was submitted
             if ($_POST) {
+                // values to fill up our form
+                $customer_id =  htmlspecialchars(strip_tags($_POST['username']));
+                $orderdetail_id = $_POST['orderdetail_id'];
+                $product_id = $_POST['product_id'];
+                $quantity =  $_POST['quantity'];
 
-                // posted values
-                $username = htmlspecialchars(strip_tags($_POST['username']));
-                $password = htmlspecialchars(strip_tags($_POST['password']));
-                $confirmpassword = htmlspecialchars(strip_tags($_POST['password']));
-                $email = htmlspecialchars(strip_tags($_POST['email']));
-                $firstname = htmlspecialchars(strip_tags($_POST['firstname']));
-                $lastname = htmlspecialchars(strip_tags($_POST['lastname']));
-                $dob = htmlspecialchars(strip_tags($_POST['year'])) . "-" . htmlspecialchars(strip_tags($_POST['month'])) . "-" . htmlspecialchars(strip_tags($_POST['day']));
-                $gender = htmlspecialchars(strip_tags($_POST['gender']));
-                $status = htmlspecialchars(strip_tags($_POST['status']));
-                $age = (int)date('Y') - (int)$_POST['year'];
-                $error = "";
+                //$productchosen = array($product_id[0], $product_id[1], $product_id[2]);
+                $total = count($product_id);
+                //$uu = $row['customer_id'];
+                //echo $total;
+                $uu = isset($row['username']) ? $row['username'] : "";
 
-                if (empty($_POST['username']) || empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['gender']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['confirmpassword']) || empty($_POST['status'])) {
-                    $error = $error . "<div class='alert alert-danger'>Please fill in all the information</div>";
+                if (empty($_POST['username']) || empty($_POST['product_id']) || empty($_POST['quantity'])) {
+                    echo "<div class='alert alert-danger'>Please fill in all the information</div>";
                 }
-
-                //Starting ^,And end $, in the string there has to be at least 1 number(?=.*\d), and at least one letter(?=.*[A-Za-z])and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]and there have to be 8-12 characters -> {6,15} '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,15}$/'
-                //if match these continue, if not, go error.
-                if (!preg_match("/^[a-zA-Z0-9 ]{6,}$/", $username)) {
-                    $error = $error . "<div class='alert alert-danger'>Username must not contain space with minimum 6 characters</div>";
-                }
-
-                if (!preg_match("/^.*(?=.{6,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $password)) {
-                    $error = $error . "<div class='alert alert-danger'>Password must be minimum 6 characters, contain at least a number, a capital letter and a small letter</div>";
-                }
-
-                if ($password  != $confirmpassword) {
-                    $error = $error . "<div class='alert alert-danger'>Password and confirm password does not match</div>";
-                }
-
-                if ($age <= 18) {
-                    $error = $error . "<div class='alert alert-danger'>Customer must be above 18 years old</div>";
-                }
-
-                $query = "SELECT username FROM customers WHERE username=?";
-                $stmt = $con->prepare($query);
-                $stmt->execute();
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $name[] = $row;
-                    if ($username == $name['username']) {
-                        $error = $error . "<div class='alert alert-danger'>Username had been used</div>";
-                    }
-                }
-                echo $error;
-
-                if ($error == "") {
+                if (count(array_unique($product_id)) != $total) {
+                    echo "<div class='alert alert-danger'>Please choose 3 different items</div>";
+                } else {
 
                     try {
                         // write update query
-                        // in this case, it seemed like we have so many fields to pass and
-                        // it is better to label them and not use question marks
-                        $query = "UPDATE customers SET 
-                            username=:username, 
-                            password=:password,
-                            email=:email,
-                            firstname=:firstname, 
-                            lastname=:lastname,
-                            dob = :dob,
-                            status=:status,
-                            gender=:gender WHERE customer_id = :customer_id";
+
+                        $query = "UPDATE ordersummary SET customer_id=:customer_id WHERE order_id = :order_id ";
 
                         // prepare query for excecution
                         $stmt = $con->prepare($query);
 
                         // bind the parameters
-
-                        $stmt->bindParam(':username', $username);
-                        $stmt->bindParam(':password', $password);
-                        $stmt->bindParam(':email', $email);
-                        $stmt->bindParam(':firstname', $firstname);
-                        $stmt->bindParam(':lastname', $lastname);
-                        $stmt->bindParam(':dob', $dob);
-                        $stmt->bindParam(':gender', $gender);
-                        $stmt->bindParam(':status', $status);
-                        $stmt->bindParam(':customer_id', $id);
+                        $stmt->bindParam(':customer_id', $customer_id);
+                        $stmt->bindParam(':order_id', $id);
 
                         // Execute the query
                         if ($stmt->execute()) {
-                            header('Location: customer_read.php?action=saved');
-                            //echo "<div class='alert alert-success'>Record was updated.</div>";
+                            for ($x = 0; $x < count($product_id); $x++) {
+                                $query = "UPDATE orderdetail SET  product_id = ?, quantity = ? WHERE orderdetail_id = ?";
+                                $stmt = $con->prepare($query);
+                                $stmt->bindParam(1, $product_id[$x]);
+                                $stmt->bindParam(2, $quantity[$x]);
+                                $stmt->bindParam(3, $orderdetail_id[$x]);
+
+
+                                if ($stmt->execute()) {
+                                    if ($x == (count($product_id)) - 1) {
+                                        echo "<div class='alert alert-success'>Record was updated.</div>";
+                                    }
+                                } else {
+                                    if ($x == (count($product_id)) - 1) {
+                                        echo "<div class='alert alert-danger'>Unable to update record.</div>";
+                                    }
+                                }
+                            }
                         }
                     }
                     // show errors
@@ -188,6 +160,21 @@
                         die('ERROR: ' . $exception->getMessage());
                     }
                 }
+            }
+            //fetch product
+            $product = array();
+            $query = "SELECT name, id FROM products";
+            $stmt = $con->prepare($query);
+            $stmt->execute();
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $product[] = $row;
+            }
+            //fecth customer info
+            $query = "SELECT username, customer_id FROM customers";
+            $stmt = $con->prepare($query);
+            $stmt->execute();
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $user[] = $row;
             }
             ?>
 
@@ -200,148 +187,59 @@
                         <table class='table table-hover table-responsive'>
                             <tbody>
                                 <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Username</th>
-                                    <td><input type='text' name='username' class='form-control col-11' value="<?php echo htmlspecialchars($username, ENT_QUOTES); ?>" /></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Password</th>
-                                    <td><input type='password' name='password' value="<?php echo htmlspecialchars($password, ENT_QUOTES); ?>" class='form-control' />
-                                </tr>
-                                <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Confirm Password</td>
-                                    <td><input type='password' name='confirmpassword' value="<?php echo htmlspecialchars($password, ENT_QUOTES); ?>" class='form-control' /></td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Email</td>
-                                    <td><input type='text' name='email' value="<?php echo htmlspecialchars($email, ENT_QUOTES); ?>" class='form-control' />
-                                </tr>
-                                <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">First Name</td>
-                                    <td><input type='text' name='firstname' value="<?php echo htmlspecialchars($firstname, ENT_QUOTES); ?>" class='form-control' />
-                                </tr>
-                                <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Last Name</td>
-                                    <td><input type='text' name='lastname' value="<?php echo htmlspecialchars($lastname, ENT_QUOTES); ?>" class='form-control' />
-                                </tr>
-                                <tr>
-
                                     <div class="<d-flex flex-row mb-3">
-                                        <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Date of Birth</td>
+                                        <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Username</td>
                                         <td class="btn-group w-100">
-                                            <div class="w-30 p-2">
-                                                <label for="day">Day:</label>
-
+                                            <div class="w-50 p-2">
+                                                <label for="username">Username</label>
                                                 <?php
-
-                                                $selected = isset($_POST["day"]) ? (int)$_POST["day"] : "$dd";
-
+                                                $selected = isset($_POST["username"]) ? $_POST["username"] : $customer_id;
                                                 ?>
-                                                <select name='day' class="form-control" id="day">
-                                                    <option value="">--- Choose day ---</option>
+                                                <select name='username' class="form-control" id="username">
+                                                    <option value="">--- Choose username ---</option>
                                                     <?php
-
-                                                    for ($day = 1; $day < 31; $day++) { ?>
-                                                        <option value="<?php echo $day ?>" <?php if ($day == $selected) echo "selected"; ?>>
-                                                            <?php echo $day; ?>
+                                                    foreach ($user as $u) { ?>
+                                                        <option value="<?php echo $u['customer_id']; ?>" <?php if ($u['customer_id'] == $selected) echo "selected"; ?>>
+                                                            <?php echo $u['username']; ?>
                                                         </option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
-                                            <div class="w-40 p-2">
-                                                <label for="month ">Month: </label>
-
+                                </tr>
+                                <?php for ($i = 0; $i < count($product_id); $i++) { ?>
+                                    <tr class="productrow">
+                                        <td>Products</td>
+                                        <td class="btn-group w-100">
+                                            <div class="w-50 p-2">
+                                                <label for="prodcut1">Item 1</label>
                                                 <?php
-                                                // (int) to convert the posted month into integer or else it will be come a string
-                                                $selected = isset($_POST["month"]) ? (int)$_POST["month"] : "$mm";
-
+                                                $selected = htmlspecialchars(strip_tags($product_id[$i]));
                                                 ?>
-                                                <select name='month' class="form-control" id="month">
-                                                    <option value="">--- Choose month ---</option>
+                                                <select name='product_id[]' class="form-control" id="product1">
+                                                    <option value="">--- Choose item ---</option>
                                                     <?php
-                                                    $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-                                                    for ($m = 0; $m < count($month); $m++) { ?>
-                                                        <option value="<?php echo $m + 1; ?>" <?php if ($m + 1 == $selected) echo "selected"; ?>>
-                                                            <?php echo $month[$m]; ?>
-                                                        </option>
-                                                    <?php } ?>
-                                                    <!--triple = :To check the data type and also the value inside. In PHP, 0 is same as '', but 0 is integer, and '' is a string, so using triple = is to differentiate them-->
-                                                </select>
-                                            </div>
-                                            <div class="w-30 p-2">
-                                                <label for="year">Year:</label>
-                                                <?php
-                                                $selected = isset($_POST["year"]) ? (int)$_POST["year"] : "$yy";
-                                                ?>
-                                                <select name='year' class="form-control" id="year">
-                                                    <option value="">--- Choose year ---</option>
-                                                    <?php
-
-                                                    for ($year = 1990; $year <= date("Y"); $year++) { ?>
-                                                        <option value="<?php echo $year; ?>" <?php if ($year == $selected) echo "selected"; ?>>
-                                                            <?php echo $year; ?>
+                                                    foreach ($product as $p) { ?>
+                                                        <option value="<?php echo $p['id']; ?>" <?php if ($p['id'] == $selected) echo "selected"; ?>>
+                                                            <?php echo $p['name']; ?>
                                                         </option>
                                                     <?php } ?>
                                                 </select>
+
                                             </div>
 
-                                        </td>
-                                    </div>
-                                </tr>
+                                            <div class="w-20 p-2">
+                                                <label for="quantity">Quantity</label>
+                                                <input type='number' min=0 name='quantity[]' class="form-control" value="<?php echo $quantity[$i] ?>" />
+                                                <input type="hidden" name="orderdetail_id[]" value="<?php echo $orderdetail_id[$i] ?>">
+                                            </div>
+                                    </tr>
+                                <?php } ?>
 
-                                <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Gender</td>
-                                    <td>
-                                        <!-- must use id -->
-                                        <div class="pe-1">
-                                            <input class="form-check-input" type="radio" id="male" name="gender" <?php if (isset($gender) && $gender == "male") echo "checked"; ?> value="male">
-                                            <label class="from-check-label" for="Radio1">
-
-                                                Male
-                                            </label>
-                                        </div>
-                                        <div class="pe-1">
-                                            <input class="form-check-input" type="radio" id="female" name="gender" <?php if (isset($gender) && $gender == "female") echo "checked"; ?> value="female">
-                                            <label class="from-check-label" for="Radio2">
-                                                Female
-                                            </label>
-                                        </div>
-
-                                        <div class="pe-1">
-                                            <input class="form-check-input" type="radio" id="other" name="gender" <?php if (isset($gender) && $gender == "other") echo "checked"; ?> value="other">
-                                            <label class="from-check-label" for="Radio3">
-                                                Other
-                                            </label>
-                                        </div>
-
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Status</td>
-                                    <td>
-                                        <!-- must use id -->
-                                        <div class="pe-1">
-                                            <input class="form-check-input" type="radio" id="active" name="status" <?php if (isset($status) && $status == "active") echo "checked"; ?> value="active">
-                                            <label class="from-check-label" for="Radio1">
-                                                Active
-                                            </label>
-                                        </div>
-
-                                        <div class="pe-1">
-                                            <input class="form-check-input" type="radio" id="deactivate" name="status" <?php if (isset($status) && $status == "deactivate") echo "checked"; ?> value="deactivate">
-                                            <label class="from-check-label" for="Radio2">
-                                                Deactivate
-                                            </label>
-                                        </div>
-
-                                    </td>
-                                </tr>
                                 <tr>
                                     <td></td>
                                     <td>
                                         <input type='submit' value='Save Changes' class='btn btn-primary btn bg-gradient-primary mb-0' />
-                                        <a class="btn bg-gradient-dark mb-0" href="customer_read.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Customer List</a>
+                                        <a class="btn bg-gradient-dark mb-0" href="order_summary.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Order List</a>
                                     </td>
                                 </tr>
                             </tbody>
