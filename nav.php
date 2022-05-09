@@ -29,14 +29,6 @@
             <span class="nav-link-text ms-1">Create Product</span>
           </a>
         </li>
-        <!--<li class="nav-item">
-          <a class="nav-link " href="product_update.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-active-40 text-warning text-lg opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Product Update</span>
-          </a>
-        </li>-->
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Orders</h6>
         </li>
@@ -56,21 +48,13 @@
             <span class="nav-link-text ms-1">Create Order</span>
           </a>
         </li>
-        <!--<li class="nav-item">
-          <a class="nav-link " href="product_update.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-active-40 text-success text-lg opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Order Update</span>
-          </a>
-        </li>-->
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Customers</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="customer_read.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-single-copy-04 text-info text-lg opacity-10"></i>
+              <i class="ni ni-single-copy-04 text-info text-lg opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Customer List</span>
           </a>
@@ -91,30 +75,6 @@
             <span class="nav-link-text ms-1">Log Out</span>
           </a>
         </li>
-         <!--<li class="nav-item">
-          <a class="nav-link " href="product_update.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-active-40 text-info text-lg opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Customer Update</span>
-          </a>
-        </li>
-       <li class="nav-item">
-          <a class="nav-link " href="pages/index.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Log In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="pages/sign-up.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-collection text-info text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>-->
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">

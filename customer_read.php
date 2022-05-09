@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<?php
+  <?php
   include 'headicon.php';
   ?>
   <title>
@@ -73,15 +73,16 @@ $num = $stmt->rowCount();
           </ol>
           <h3 class="font-weight-bolder text-white mb-0">Customer List</h3>
         </nav>
-        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        </div>-->
+        <?php
+        include 'hamburger.php';
+        ?>
       </div>
     </nav>
     <!-- End Navbar -->
     <!-- note:py-4 control distance above the button-->
     <div class="container-fluid py-4">
       <div class="col-12 text-start pb-4">
-        <a class="btn bg-gradient-dark mb-0" href="product_create.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New Customer</a>
+        <a class="btn bg-gradient-dark mb-0" href="customer_create.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New Customer</a>
       </div>
       <div class="row">
         <div class="col-12">

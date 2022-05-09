@@ -77,8 +77,9 @@ catch (PDOException $exception) {
           </ol>
           <h3 class="font-weight-bolder text-white mb-0">Product Details</h3>
         </nav>
-        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        </div>-->
+        <?php
+        include 'hamburger.php';
+        ?>
       </div>
     </nav>
     <!-- End Navbar -->

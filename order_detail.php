@@ -59,8 +59,9 @@ $num = $stmt->rowCount();
                     </ol>
                     <h3 class="font-weight-bolder text-white mb-0">Order Details</h3>
                 </nav>
-                <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        </div>-->
+                <?php
+                include 'hamburger.php';
+                ?>
             </div>
         </nav>
         <!-- End Navbar -->
@@ -103,7 +104,7 @@ $num = $stmt->rowCount();
                                         echo "</div>";
                                         echo "</div>";
                                         echo "</td>";
-                                        
+
                                         echo "<td class='align-middle text-center text-sm'>";
                                         //<span class="badge badge-sm bg-gradient-success">Online</span>
                                         echo "<span class='text-secondary text-xs font-weight-bold'>{$order_id}</span>";
@@ -124,7 +125,7 @@ $num = $stmt->rowCount();
                                         //echo "</tr>";
                                         echo "</tbody>";
                                     }
-                                    
+
 
                                     echo "</table>";
                                 }

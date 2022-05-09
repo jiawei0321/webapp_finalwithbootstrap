@@ -87,8 +87,9 @@ catch (PDOException $exception) {
           </ol>
           <h3 class="font-weight-bolder text-white mb-0">Customer Details</h3>
         </nav>
-        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        </div>-->
+        <?php
+        include 'hamburger.php';
+        ?>
       </div>
     </nav>
     <!-- End Navbar -->
@@ -170,7 +171,7 @@ catch (PDOException $exception) {
                         <span class="text-secondary text-s font-weight-bold">
                           <?php //zodiac
                           $animal_c = array("Monkey", "Chicken", "Dog", "Pig", "Mouse", "Cow", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat");
-                          echo htmlspecialchars($animal_c[$animal], ENT_QUOTES);  
+                          echo htmlspecialchars($animal_c[$animal], ENT_QUOTES);
                           ?></span>
                       </td>
 

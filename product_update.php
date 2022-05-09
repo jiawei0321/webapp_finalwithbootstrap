@@ -35,16 +35,9 @@
                         </ol>
                         <h3 class="font-weight-bolder text-white mb-0">Update Product</h3>
                     </nav>
-                    <main class="main-content position-relative border-radius-lg ">
-                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
-                                <div class="sidenav-toggler-inner">
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                </div>
-                            </a>
-                        </li>
+                    <?php
+                    include 'hamburger.php';
+                    ?>
                 </div>
             </nav>
             <?php
@@ -94,7 +87,7 @@
                 $name = htmlspecialchars(strip_tags($_POST['name']));
                 $description = htmlspecialchars(strip_tags($_POST['description']));
                 $price = htmlspecialchars(strip_tags($_POST['price']));
-                
+
                 if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price'])) {
 
                     if (ctype_alpha($_POST['name'])) {
