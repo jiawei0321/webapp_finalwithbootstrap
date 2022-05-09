@@ -45,7 +45,9 @@ if ($action == 'nonavsignin') {
 if ($_POST) {
 
   if (empty($_POST['username']) || empty($_POST['password'])) {
-    echo "<div class='alert alert-danger'>Please fill in username and password</div>";
+    echo "<div class='container pt-3'>";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in username and password.</p></div>";
+    echo "</div>";
   } else {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -75,9 +77,13 @@ if ($_POST) {
       echo "</div>";
 
     } else if ($row['password'] != $password) {
-      echo "<div class='alert alert-danger' role='alert'>Password is incorrect.</div>";
+      echo "<div class='container pt-3'>";
+      echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'><strong>Try Again! </strong>Password is incorrect.</p></div>";
+      echo "</div>";
     } else if ($row['status'] != "active") {
-      echo "<div class='alert alert-danger' role='alert'>This account is disabled.</div>";
+      echo "<div class='container pt-3'>";
+      echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>This account is disabled.</p></div>";
+      echo "</div>";
     } else {
       // Set session variables
       $_SESSION["username"] = $_POST['username'];
@@ -184,8 +190,9 @@ if ($_POST) {
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
-          background-size: cover;">
+              <!--<div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" 
+              style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg'); background-size: cover;">-->
+           <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('../webapp_final/assets/img/indexpic.jpg'); background-size: cover;">
                 <span class="mask bg-gradient-primary opacity-6"></span>
                 <h4 class="mt-5 text-white font-weight-bolder position-relative">"Good quality product at affordable price"</h4>
                 <p class="text-white position-relative">Start Shopping on JW shop.</p>
