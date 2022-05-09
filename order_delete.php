@@ -7,9 +7,9 @@ try {
     $id = isset($_GET['id']) ? $_GET['id'] :  die('ERROR: Record ID not found.');
 
     // delete query
-    $query = "DELETE FROM orderdetail, ordersummary ON
-    WHERE orderdetail.order_id = ?
-    AND orderdetail.order_id = ordersummary.order_id";
+    $query = "DELETE FROM ordersummary WHERE order_id = ?";
+
+    //$query = "DELETE FROM orderdetail LEFT JOIN ordersummary ON orderdetail.order_id = ordersummary.order_id WHERE orderdetail.order_id = ?";
 
     $stmt = $con->prepare($query);
 
