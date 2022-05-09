@@ -76,7 +76,7 @@ if ($_POST) {
       echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'><strong>Oh No! </strong> User not found.</p></div>";
       echo "</div>";
 
-    } else if ($row['password'] != $password) {
+    } else if ($_POST['password'] != $password) {
       echo "<div class='container pt-3'>";
       echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'><strong>Try Again! </strong>Password is incorrect.</p></div>";
       echo "</div>";

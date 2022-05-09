@@ -51,6 +51,8 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 //customer create
                 $username = test_input($_POST['username']);
+                //$password = md5(test_input($_POST['password']));
+                //$confirmpassword = md5(test_input($_POST['confirmpassword']));
                 $password = test_input($_POST['password']);
                 $confirmpassword = test_input($_POST['confirmpassword']);
                 $email = test_input($_POST['email']);
@@ -125,12 +127,11 @@
                 }
                 //Starting ^,And end $, in the string there has to be at least 1 number(?=.*\d), and at least one letter(?=.*[A-Za-z])and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]and there have to be 8-12 characters -> {6,15} '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,15}$/'
                 //if match these continue, if not, go error.
-                if (!preg_match("/^[a-zA-Z0-9 ]{6,}$/", $username)) {
+                if (!preg_match('/^[a-zA-Z0-9 ]{6,}$/', $username)) {
                     $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Username must only be at least 6 characters and no space.</p></div>";
                 }
-                if (!preg_match("/^.*(?=.{6,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $password)) {
+                if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,}$/', $password)) {
                     $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Password must be minimum 6 characters, contain at least a number, a small letter and a capital letter.</p></div>";
-                    echo $password;
                 }
 
                 if ($password  != $confirmpassword) {
@@ -156,7 +157,9 @@
 
                 if ($error == "") {
                     try {
-
+                        $password = md5($_POST['password']);
+                        $confirmpassword = md5($_POST['confirmpassword']);
+                        
                         // insert query
                         $query = "INSERT INTO customers SET 
                             username =:username, 

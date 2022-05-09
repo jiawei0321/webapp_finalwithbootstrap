@@ -140,8 +140,9 @@
                 echo $error;
 
                 if ($error == "") {
-
                     try {
+                        $password = md5($_POST['password']);
+                        $confirmpassword = md5($_POST['confirmpassword']);
                         // write update query
                         // in this case, it seemed like we have so many fields to pass and
                         // it is better to label them and not use question marks
@@ -198,11 +199,11 @@
                                 </tr>
                                 <tr>
                                     <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Password</th>
-                                    <td><input type='password' name='password' value="<?php echo htmlspecialchars($password, ENT_QUOTES); ?>" class='form-control' />
+                                    <td><input type='password' name='password' class='form-control' />
                                 </tr>
                                 <tr>
                                     <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Confirm Password</td>
-                                    <td><input type='password' name='confirmpassword' value="<?php echo htmlspecialchars($password, ENT_QUOTES); ?>" class='form-control' /></td>
+                                    <td><input type='password' name='confirmpassword' class='form-control' /></td>
                                     </td>
                                 </tr>
                                 <tr>
