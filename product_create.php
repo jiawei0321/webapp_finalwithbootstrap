@@ -102,7 +102,8 @@
                 }
                 if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price'])) {
 
-                    if (ctype_alpha($_POST['name'])) {
+                    //let letter and space ok pass
+                    if (ctype_alpha(str_replace(' ', '', $name))) {
 
                         if (is_numeric($_POST['price'])) {
 
@@ -150,10 +151,10 @@
                                 die('ERROR: ' . $exception->getMessage());
                             }
                         } else {
-                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Please only key in number in price</div>";
+                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in number in price.</p></div>";
                         }
                     } else {
-                        echo "<div class='alert alert-danger'>Please only key in letters in name</div>";
+                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in letters in name.</p></div>";
                     }
                 } else {
                     //echo "<div class='container me-5 pt-3'>";

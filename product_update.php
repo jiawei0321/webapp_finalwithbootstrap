@@ -77,7 +77,6 @@
             }
             ?>
 
-
             <!-- HTML form to update record will be here -->
             <!-- PHP post to update record will be here -->
             <?php
@@ -90,7 +89,7 @@
 
                 if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price'])) {
 
-                    if (ctype_alpha($_POST['name'])) {
+                    if (ctype_alpha(str_replace(' ', '', $name))) {
 
                         if (is_numeric($_POST['price'])) {
 

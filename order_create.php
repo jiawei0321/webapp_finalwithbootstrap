@@ -103,7 +103,7 @@
                                         }
                                     } else {
                                         if ($x == (count($product_id)) - 1) {
-                                            echo "<div class='alert alert-danger'>Unable to update record.</div>";
+                                            echo "<div class='alert alert-danger'><p class='text-white mb-0'>Unable to update record.</p></div>";
                                         }
                                     }
                                 }

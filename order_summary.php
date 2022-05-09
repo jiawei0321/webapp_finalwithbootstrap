@@ -31,18 +31,18 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 // if it was redirected from delete.php
 if ($action == 'deleted') {
     echo "<div class='container me-5 pt-3'>";
-    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was deleted.</p></div>";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record was deleted.</p></div>";
     echo "</div>";
 }
 
 if ($action == 'saved') {
     echo "<div class='container me-5 pt-3'>";
-    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was saved.</p></div>";
+    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record was saved.</p></div>";
     echo "</div>";
 }
 if ($action == 'deleteerror') {
     echo "<div class='container me-5 pt-3'>";
-    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record unable to delete. Only never purchased product can be deleted.</p></div>";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record unable to delete. Only never purchased product can be deleted.</p></div>";
     echo "</div>";
 }
 
@@ -83,7 +83,7 @@ $num = $stmt->rowCount();
         <!-- note:py-4 control distance above the button-->
         <div class="container-fluid py-4">
             <div class="col-12 text-start pb-4">
-                <a class="btn bg-gradient-dark mb-0" href="product_create.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New Order</a>
+                <a class="btn bg-gradient-dark mb-0" href="order_create.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New Order</a>
             </div>
             <div class="row">
                 <div class="col-12">
