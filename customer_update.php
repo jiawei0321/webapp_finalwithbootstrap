@@ -107,25 +107,25 @@
                 $error = "";
 
                 if (empty($_POST['username']) || empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['gender']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['confirmpassword']) || empty($_POST['status'])) {
-                    $error = $error . "<div class='alert alert-danger'>Please fill in all the information</div>";
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
                 }
 
                 //Starting ^,And end $, in the string there has to be at least 1 number(?=.*\d), and at least one letter(?=.*[A-Za-z])and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]and there have to be 8-12 characters -> {6,15} '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,15}$/'
                 //if match these continue, if not, go error.
                 if (!preg_match("/^[a-zA-Z0-9 ]{6,}$/", $username)) {
-                    $error = $error . "<div class='alert alert-danger'>Username must not contain space with minimum 6 characters</div>";
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Username must not contain space with minimum 6 characters.</p></div>";
                 }
 
                 if (!preg_match("/^.*(?=.{6,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $password)) {
-                    $error = $error . "<div class='alert alert-danger'>Password must be minimum 6 characters, contain at least a number, a capital letter and a small letter</div>";
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Password must be minimum 6 characters, contain at least a number, a capital letter and a small letter.</p></div>";
                 }
 
                 if ($password  != $confirmpassword) {
-                    $error = $error . "<div class='alert alert-danger'>Password and confirm password does not match</div>";
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Password and confirm password does not match.</p></div>";
                 }
 
                 if ($age <= 18) {
-                    $error = $error . "<div class='alert alert-danger'>Customer must be above 18 years old</div>";
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Customer must be above 18 years old.</p></div>";
                 }
 
                 $query = "SELECT username FROM customers WHERE username=?";
@@ -134,7 +134,7 @@
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $name[] = $row;
                     if ($username == $name['username']) {
-                        $error = $error . "<div class='alert alert-danger'>Username had been used</div>";
+                        $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Username had been used.</p></div>";
                     }
                 }
                 echo $error;

@@ -72,24 +72,24 @@
 
                     // make sure file does not exist
                     if (file_exists($target_file)) {
-                        $file_upload_error_messages = "<div class='alert alert-danger'>Image already exists. Try to change file name.</div>";
+                        $file_upload_error_messages = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'><strong>Image already exists.</strong> Try to change file name.</p></div>";
                     }
                     // check the extension of the upload file
                     $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
                     // make sure only certain file types are allowed
                     $allowed_file_types = array("jpg", "jpeg", "png");
                     if (!in_array($file_type, $allowed_file_types)) {
-                        $file_upload_error_messages = "<div class='alert alert-danger'>Only JPEG,JPG or PNG files are allowed.</div>";
+                        $file_upload_error_messages = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Only JPEG,JPG or PNG files are allowed.</p></div>";
                     }
                     // make sure submitted file is not too large
                     if ($_FILES['product_image']['size'] > (5120000)) {
-                        $file_upload_error_messages = "<div class='alert alert-danger'>Image must be less than 5 MB in size.</div>";
+                        $file_upload_error_messages = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Image must be less than 5 MB in size.</p></div>";
                     }
 
                     if (empty($file_upload_error_messages)) {
                         // it means there are no errors, so try to upload the file (now only start uploading)
                         if (!move_uploaded_file($_FILES["product_image"]["tmp_name"], $target_file)) {
-                            echo "<div class='alert alert-danger'>Unable to upload photo.</div>";
+                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Unable to upload photo.</p></div>";
                         }
                     } else {
                         // it means there are some errors, so show them to user

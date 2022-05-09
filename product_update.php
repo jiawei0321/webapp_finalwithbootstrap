@@ -121,10 +121,10 @@
                                 die('ERROR: ' . $exception->getMessage());
                             }
                         } else {
-                            echo "<div class='alert alert-danger'>Please only key in number in price</div>";
+                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in number in price.</p></div>";
                         }
                     } else {
-                        echo "<div class='alert alert-danger'>Please only key in letters in name</div>";
+                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in letters in name.</p></div>";
                     }
                 } else {
                     echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in name, description and price.</p></div>";

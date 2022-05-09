@@ -93,11 +93,11 @@
                     // make sure only certain file types are allowed
                     $allowed_file_types = array("jpg", "jpeg", "png");
                     if (!in_array($file_type, $allowed_file_types)) {
-                        $file_upload_error_messages = "<div class='alert alert-danger'>Only JPEG,JPG or PNG files are allowed.</div>";
+                        $file_upload_error_messages =  "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Only JPEG,JPG or PNG files are allowed.</p></div>";
                     }
                     // make sure submitted file less than 5mb
                     if ($_FILES['cust_image']['size'] > (5120000)) {
-                        $file_upload_error_messages = "<div class='alert alert-danger'>Image must be less than 5 MB in size.</div>";
+                        $file_upload_error_messages = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Image must be less than 5 MB in size.</p></div>";
                     }
 
                     if (empty($file_upload_error_messages)) {

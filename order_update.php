@@ -108,10 +108,10 @@
                 $uu = isset($row['username']) ? $row['username'] : "";
 
                 if (empty($_POST['username']) || empty($_POST['product_id']) || empty($_POST['quantity'])) {
-                    echo "<div class='alert alert-danger'>Please fill in all the information</div>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
                 }
                 if (count(array_unique($product_id)) != $total) {
-                    echo "<div class='alert alert-danger'>Please choose 3 different items</div>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose 3 different items.</p></div>";
                 } else {
 
                     try {
@@ -138,7 +138,8 @@
 
                                 if ($stmt->execute()) {
                                     if ($x == (count($product_id)) - 1) {
-                                        echo "<div class='alert alert-success'>Record was updated.</div>";
+                                        header('Location: order_summary.php?action=saved');
+                                        //echo "<div class='alert alert-success'>Record was updated.</div>";
                                     }
                                 } else {
                                     if ($x == (count($product_id)) - 1) {

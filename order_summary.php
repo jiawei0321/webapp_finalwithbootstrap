@@ -37,7 +37,7 @@ if ($action == 'deleted') {
 
 if ($action == 'saved') {
     echo "<div class='container me-5 pt-3'>";
-    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was saved.</p></div>";
+    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was saved.</p></div>";
     echo "</div>";
 }
 if ($action == 'deleteerror') {

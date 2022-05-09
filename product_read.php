@@ -36,16 +36,14 @@ if ($action == 'deleted') {
 }
 
 if ($action == 'saved') {
-  echo "<div class='alert alert-success'>Product record was saved.</div>";
+  echo "<div class='container me-5 pt-3'>";
+  echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Product record was saved.</p></div>";
+  echo "</div>";
 }
 if ($action == 'deleteerror') {
   //echo "<div class='alert alert-danger'>Product record unable to delete. Only never purchased product can be deleted.</div>";
   echo "<div class='container me-5 pt-3'>";
-  echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>";
-  echo "<p class='text-white mb-0'>";
-  echo "<strong>Product record unable to delete! </strong> Only never purchased product can be deleted.";
-  echo "</p>";
-  echo "</div>";
+  echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'><strong>Product record unable to delete! </strong> Only never purchased product can be deleted.</p></div>";
   echo "</div>";
 }
 
@@ -61,7 +59,7 @@ $stmt->execute();
 $num = $stmt->rowCount();
 ?>
 
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   <?php
   include 'nav.php';

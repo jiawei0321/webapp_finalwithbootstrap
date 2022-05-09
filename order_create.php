@@ -63,10 +63,10 @@
                 $total = count($productchosen);
 
                 if (empty($_POST['username']) || empty(array_filter($_POST['product_id'])) || empty(array_filter($_POST['quantity']))) {
-                    echo "<div class='alert alert-danger'>Please fill in all the information</div>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
                 }
                 if (count(array_unique($productchosen)) != $total) {
-                    echo "<div class='alert alert-danger'>Please choose different items</div>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose different items.</p></div>";
                     //echo count($productchosen);
                 } else {
 
