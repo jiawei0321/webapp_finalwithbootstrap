@@ -9,7 +9,7 @@ session_start();
     include 'headicon.php';
     ?>
     <title>
-        Create_Product
+        Product_Detail
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -26,7 +26,7 @@ session_start();
 
 <body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <div class="container me-1 pt-3 ps-7">
+    <div class='container me-1 pt-3 ps-7'>
         <?php
         // include database connection
         include 'database/connection.php';
@@ -154,29 +154,25 @@ session_start();
         }
         ?>
     </div>
-    <!-- Navbar -->
-    <!-- End Navbar -->
-    <!-- note:py-4 control distance above the button-->
-    <!-- Navbar -->
     <?php
     include 'nav.php';
     ?>
     <main class="main-content position-relative border-radius-lg ">
+        <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Products</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Create Product</li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Product Details</li>
                     </ol>
-                    <h3 class="font-weight-bolder text-white mb-0">Create Product</h3>
+                    <h3 class="font-weight-bolder text-white mb-0">Product Details</h3>
                 </nav>
                 <?php
                 include 'hamburger.php';
                 ?>
             </div>
         </nav>
-
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
             <div class="card mb-4 mx-4">
                 <div class="card-body px-7 py-5">
@@ -214,7 +210,6 @@ session_start();
         include("footer.php");
         ?>
     </main>
-
     <!--   Core JS Files   -->
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap.min.js"></script>
@@ -233,6 +228,7 @@ session_start();
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/argon-dashboard.min.js?v=2.0.2"></script>
+
 </body>
 
 </html>

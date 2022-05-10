@@ -26,23 +26,12 @@ session_start();
 
 <body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <div class="container me-7">
-        <main class="main-content position-relative border-radius-lg ">
-            <!-- Navbar -->
-            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
-                <div class="container-fluid py-1 px-3">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Customers</a></li>
-                            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Create Customer</li>
-                        </ol>
-                        <h3 class="font-weight-bolder text-white mb-0">Create Customer</h3>
-                    </nav>
-                    <?php
-                    include 'hamburger.php';
-                    ?>
-                </div>
-            </nav>
+    <?php
+    include 'nav.php';
+    ?>
+    <main class="main-content position-relative border-radius-lg ">
+
+        <div class="container py-4">
 
             <?php
             // include database connection
@@ -149,7 +138,6 @@ session_start();
                 if ($age <= 18) {
                     $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Customer must be above 18 years old.</p></div>";
                 }
-
                 $query = "SELECT * FROM customers WHERE username=:username";
                 $stmt = $con->prepare($query);
                 $stmt->bindParam(':username', $username);
@@ -215,14 +203,26 @@ session_start();
             <!-- Navbar -->
             <!-- End Navbar -->
             <!-- note:py-4 control distance above the button-->
+            <!-- Navbar -->
+            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+                <div class="container-fluid py-1 px-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Customers</a></li>
+                            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Create Customer</li>
+                        </ol>
+                        <h3 class="font-weight-bolder text-white mb-0">Create Customer</h3>
+                    </nav>
+                    <?php
+                    include 'hamburger.php';
+                    ?>
+                </div>
+            </nav>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+                <div class="card mb-4">
+                    <div class="card-body px-7 py-5">
 
-            <?php
-            include 'nav.php';
-            ?>
-            <div class="card mb-4">
-                <div class="card-body px-7 py-5">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-                        <table class='table table-hover table-responsive'>
+                        <table class="table table-hover table-responsive">
                             <tbody>
                                 <tr>
                                     <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Username</th>
@@ -250,7 +250,6 @@ session_start();
                                     <td><input type='text' name='lastname' class='form-control' value="<?php echo $lastname; ?>" /></td>
                                 </tr>
                                 <tr>
-
                                     <div class="<d-flex flex-row mb-3">
                                         <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Date of Birth</td>
                                         <td class="btn-group w-100">
@@ -258,9 +257,7 @@ session_start();
                                                 <label for="day">Day:</label>
 
                                                 <?php
-
                                                 $selected = isset($_POST["day"]) ? (int)$_POST["day"] : "";
-
                                                 ?>
                                                 <select name='day' class="form-control" id="day">
                                                     <option value="">--- Choose day ---</option>
@@ -281,7 +278,6 @@ session_start();
                                                 <?php
                                                 // (int) to convert the posted month into integer or else it will be come a string
                                                 $selected = isset($_POST["month"]) ? (int)$_POST["month"] : "";
-
                                                 ?>
                                                 <select name='month' class="form-control" id="month">
                                                     <option value="">--- Choose month ---</option>
@@ -317,8 +313,6 @@ session_start();
                                         </td>
                                     </div>
                                 </tr>
-
-                                </tr>
                                 <tr>
                                     <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Gender</td>
                                     <td>
@@ -346,7 +340,6 @@ session_start();
 
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Status</td>
                                     <td>
@@ -381,14 +374,15 @@ session_start();
                                 </tr>
                             </tbody>
                         </table>
+
+                    </div>
                 </div>
-            </div>
+                <?php
+                include("footer.php");
+                ?>
             </form>
-            <?php
-            include("footer.php");
-            ?>
-        </main>
-    </div>
+        </div>
+    </main>
     <!--   Core JS Files   -->
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap.min.js"></script>

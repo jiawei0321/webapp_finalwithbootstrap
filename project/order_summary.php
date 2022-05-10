@@ -24,53 +24,55 @@ session_start();
     <link id="pagestyle" href="assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<?php
-// include database connection
-include 'database/connection.php';
 
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php?action=nologin");
-    //go to the first page if the person didnt log in
-}
-// delete message prompt will be here
-$action = isset($_GET['action']) ? $_GET['action'] : "";
-
-// if it was redirected from delete.php
-if ($action == 'deleted') {
-    echo "<div class='container me-5 pt-3'>";
-    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record was deleted.</p></div>";
-    echo "</div>";
-}
-
-if ($action == 'saved') {
-    echo "<div class='container me-5 pt-3'>";
-    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record was saved.</p></div>";
-    echo "</div>";
-}
-if ($action == 'deleteerror') {
-    echo "<div class='container me-5 pt-3'>";
-    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record unable to delete. Only never purchased product can be deleted.</p></div>";
-    echo "</div>";
-}
-
-// select all data
-
-$query = "SELECT order_id, customer_id, orderdate FROM ordersummary ORDER BY order_id ASC";
-//prepare above variable
-$stmt = $con->prepare($query);
-$stmt->execute();
-
-// this is how to get number of rows returned
-//see total how many product
-$num = $stmt->rowCount();
-?>
-
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
     <?php
     include 'nav.php';
     ?>
     <main class="main-content position-relative border-radius-lg ">
+        <?php
+        // include database connection
+        include 'database/connection.php';
+
+        if (!isset($_SESSION['username'])) {
+            header("Location: index.php?action=nologin");
+            //go to the first page if the person didnt log in
+        }
+        // delete message prompt will be here
+        $action = isset($_GET['action']) ? $_GET['action'] : "";
+
+        // if it was redirected from delete.php
+        if ($action == 'deleted') {
+            echo "<div class='container me-5 pt-3'>";
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record was deleted.</p></div>";
+            echo "</div>";
+        }
+
+        if ($action == 'saved') {
+            echo "<div class='container me-5 pt-3'>";
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record was saved.</p></div>";
+            echo "</div>";
+        }
+        if ($action == 'deleteerror') {
+            echo "<div class='container me-5 pt-3'>";
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Order record unable to delete. Only never purchased product can be deleted.</p></div>";
+            echo "</div>";
+        }
+
+        // select all data
+
+        $query = "SELECT order_id, customer_id, orderdate FROM ordersummary ORDER BY order_id ASC";
+        //prepare above variable
+        $stmt = $con->prepare($query);
+        $stmt->execute();
+
+        // this is how to get number of rows returned
+        //see total how many product
+        $num = $stmt->rowCount();
+        ?>
+
+
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
             <div class="container-fluid py-1 px-3">

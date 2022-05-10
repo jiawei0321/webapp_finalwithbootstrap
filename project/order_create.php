@@ -26,204 +26,201 @@ session_start();
 
 <body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <div class="container me-7">
-        <main class="main-content position-relative border-radius-lg ">
-            <!-- Navbar -->
-            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
-                <div class="container-fluid py-1 px-3">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Orders</a></li>
-                            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Create Order</li>
-                        </ol>
-                        <h3 class="font-weight-bolder text-white mb-0">Create Order</h3>
-                    </nav>
-                    <?php
-                    include 'hamburger.php';
-                    ?>
-                </div>
-            </nav>
+    <?php
+    include 'nav.php';
+    ?>
+    <main class="main-content position-relative border-radius-lg">
+        <?php
+        // include database connection
+        include 'database/connection.php';
+        include 'function/function.php';
 
-            <?php
-            // include database connection
-            include 'database/connection.php';
-            include 'function/function.php';
+        if (!isset($_SESSION['username'])) {
+            header("Location: index.php?action=nologin");
+            //go to the first page if the person didnt log in
+        }
+        $product_id = array("");
+        $customer_id = $username = $quantity = "";
+        if ($_POST) {
 
-            if (!isset($_SESSION['username'])) {
-                header("Location: index.php?action=nologin");
-                //go to the first page if the person didnt log in
+            //post value
+            $username = $_POST['username'];
+            $product_id = $_POST['product_id'];
+            $quantity = $_POST['quantity'];
+            //$quantity[] = $_POST['quantity'];
+
+            //$productchosen = array($_POST['product_id']);
+            //$productchosen = array($product_id[0], $product_id[1], $product_id[2]);
+            $productchosen = array_values($product_id);
+            $total = count($productchosen);
+
+            if (empty($_POST['username']) || empty(array_filter($_POST['product_id'])) || empty(array_filter($_POST['quantity']))) {
+                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
             }
-            $product_id = array("");
-            $customer_id = $username = $quantity = "";
-            if ($_POST) {
+            if (count(array_unique($productchosen)) != $total) {
+                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose different items.</p></div>";
+                //echo count($productchosen);
+            } else {
 
-                //post value
-                $username = $_POST['username'];
+                if (count($quantity) != 0) {
+                    try {
+                        $query = "INSERT INTO `ordersummary` (`customer_id`) VALUES (?)";
 
-                $product_id = $_POST['product_id'];
-                $quantity = $_POST['quantity'];
-                //$quantity[] = $_POST['quantity'];
+                        // prepare query for execution
+                        $stmt = $con->prepare($query);
 
-                //$productchosen = array($_POST['product_id']);
-                //$productchosen = array($product_id[0], $product_id[1], $product_id[2]);
-                $productchosen = array_values($product_id);
-                $total = count($productchosen);
+                        // bind the parameters
+                        $stmt->bindParam(1, $username);
 
-                if (empty($_POST['username']) || empty(array_filter($_POST['product_id'])) || empty(array_filter($_POST['quantity']))) {
-                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
-                }
-                if (count(array_unique($productchosen)) != $total) {
-                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose different items.</p></div>";
-                    //echo count($productchosen);
-                } else {
+                        // Execute the query
+                        if ($stmt->execute()) {
+                            $order_id = $con->lastInsertId();
+                            $orderdetail_id = $con->lastInsertId();
 
-                    if (count($quantity) != 0) {
-                        try {
-                            $query = "INSERT INTO `ordersummary` (`customer_id`) VALUES (?)";
-
-                            // prepare query for execution
-                            $stmt = $con->prepare($query);
-
-                            // bind the parameters
-                            $stmt->bindParam(1, $username);
-
-                            // Execute the query
-                            if ($stmt->execute()) {
-                                $order_id = $con->lastInsertId();
-                                $orderdetail_id = $con->lastInsertId();
-
-                                //foreach ($product_id as $x => $oneproductid) {
-                                for ($x = 0; $x < count($product_id); $x++) {
-                                    $query = "INSERT INTO `orderdetail` (`order_id`, `product_id`, `quantity`) VALUES (?, ?, ?)";
-                                    // prepare query for execution
-                                    $stmt = $con->prepare($query);
-                                    // posted values
-                                    $stmt->bindParam(1, $order_id);
-                                    //$stmt->bindParam(2, $oneproductid);
-                                    $stmt->bindParam(2, $product_id[$x]);
-                                    $stmt->bindParam(3, $quantity[$x]);
-                                    // Execute the query
-                                    if ($stmt->execute()) {
-                                        if ($x == (count($product_id)) - 1) {
-                                            //echo "<div class='alert alert-success'>Record was updated.</div>";
-                                            header('Location: order_summary.php?action=saved');
-                                        }
-                                    } else {
-                                        if ($x == (count($product_id)) - 1) {
-                                            echo "<div class='alert alert-danger'><p class='text-white mb-0'>Unable to update record.</p></div>";
-                                        }
+                            //foreach ($product_id as $x => $oneproductid) {
+                            for ($x = 0; $x < count($product_id); $x++) {
+                                $query = "INSERT INTO `orderdetail` (`order_id`, `product_id`, `quantity`) VALUES (?, ?, ?)";
+                                // prepare query for execution
+                                $stmt = $con->prepare($query);
+                                // posted values
+                                $stmt->bindParam(1, $order_id);
+                                //$stmt->bindParam(2, $oneproductid);
+                                $stmt->bindParam(2, $product_id[$x]);
+                                $stmt->bindParam(3, $quantity[$x]);
+                                // Execute the query
+                                if ($stmt->execute()) {
+                                    if ($x == (count($product_id)) - 1) {
+                                        //echo "<div class='alert alert-success'>Record was updated.</div>";
+                                        header('Location: order_summary.php?action=saved');
+                                    }
+                                } else {
+                                    if ($x == (count($product_id)) - 1) {
+                                        echo "<div class='alert alert-danger'><p class='text-white mb-0'>Unable to update record.</p></div>";
                                     }
                                 }
                             }
-
-                            //show error after submit
-                        } catch (PDOException $exception) {
-                            die('ERROR: ' . $exception->getMessage());
                         }
+
+                        //show error after submit
+                    } catch (PDOException $exception) {
+                        die('ERROR: ' . $exception->getMessage());
                     }
                 }
             }
+        }
 
-            //fetch product info
-            $product = array();
-            $query = "SELECT name, id FROM products";
-            $stmt = $con->prepare($query);
-            $stmt->execute();
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $product[] = $row;
-            }
-            //fecth customer info
-            $query = "SELECT username, customer_id FROM customers";
-            $stmt = $con->prepare($query);
-            $stmt->execute();
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $user[] = $row;
-            }
-            ?>
-            <!-- Navbar -->
-            <!-- End Navbar -->
-            <!-- note:py-4 control distance above the button-->
-
-            <?php
-            include 'nav.php';
-            ?>
-            <div class="card mb-4">
+        //fetch product info
+        $product = array();
+        $query = "SELECT name, id FROM products";
+        $stmt = $con->prepare($query);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $product[] = $row;
+        }
+        //fecth customer info
+        $query = "SELECT username, customer_id FROM customers";
+        $stmt = $con->prepare($query);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $user[] = $row;
+        }
+        ?>
+        <!-- Navbar -->
+        <!-- End Navbar -->
+        <!-- note:py-4 control distance above the button-->
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Orders</a></li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Create Order</li>
+                    </ol>
+                    <h3 class="font-weight-bolder text-white mb-0">Create Order</h3>
+                </nav>
+                <?php
+                include 'hamburger.php';
+                ?>
+            </div>
+        </nav>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+            <div class="card mb-4 mx-4">
                 <div class="card-body px-7 py-5">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-                        <table class='table table-hover table-responsive'>
-                            <tbody>
+                    <table class='table table-hover table-responsive'>
+                        <tbody>
+                            <tr>
+                                <div class="<d-flex flex-row mb-3">
+                                    <td>Username</td>
+                                    <td class="btn-group w-100">
+                                        <div class="w-50 p-2">
+                                            <label for="username">Username</label>
+                                            <?php
+                                            $selected = isset($_POST["username"]) ? $_POST["username"] : "";
+                                            ?>
+                                            <select name='username' class="form-control" id="username">
+                                                <option value="">--- Choose username ---</option>
+                                                <?php
+                                                foreach ($user as $u) { ?>
+                                                    <option value="<?php echo $u['customer_id']; ?>" <?php if ($u['customer_id'] == $selected) echo "selected"; ?>>
+                                                        <?php echo $u['username']; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                            </tr>
+
+                            <?php for ($i = 0; $i < count($product_id); $i++) { ?>
+                                <tr class="productrow">
+                                    <td>Products</td>
+                                    <td class="btn-group w-100">
+                                        <div class="w-50 p-2">
+                                            <label for="product1">Item 1</label>
+                                            <?php
+                                            $selected = isset($_POST['product_id']) ? $product_id[$i] : "";
+                                            ?>
+                                            <select name='product_id[]' class="form-control" id="product1">
+                                                <option value="">--- Choose item ---</option>
+                                                <?php
+                                                foreach ($product as $p) { ?>
+                                                    <option value="<?php echo $p['id']; ?>" <?php if ($p['id'] == $selected) echo "selected"; ?>>
+                                                        <?php echo $p['name']; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="w-20 p-2">
+                                            <label for="quantity">Quantity</label>
+                                            <input type='number' min=0 name='quantity[]' class="form-control" value="<?php if ($_POST) echo $quantity[$i]  ?>" />
+                                        </div>
+                                    <?php } ?>
+
                                 <tr>
-                                    <div class="<d-flex flex-row mb-3">
-                                        <td>Choose your username</td>
-                                        <td class="btn-group w-100">
-                                            <div class="w-50 p-2">
-                                                <label for="username">Username</label>
-                                                <?php
-                                                $selected = isset($_POST["username"]) ? $_POST["username"] : "";
-                                                ?>
-                                                <select name='username' class="form-control" id="username">
-                                                    <option value="">--- Choose username ---</option>
-                                                    <?php
-                                                    foreach ($user as $u) { ?>
-                                                        <option value="<?php echo $u['customer_id']; ?>" <?php if ($u['customer_id'] == $selected) echo "selected"; ?>>
-                                                            <?php echo $u['username']; ?>
-                                                        </option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </td>
+                                    <td></td>
+                                    <td>
+                                        <!--chech bootstrap not working-->
+                                        <button type="button" class="add_one btn btn-outline-dark">Add More Product</button>
+                                        <button type="button" class="del_last btn btn-outline-dark">Delete Last Product</button>
                                 </tr>
-
-                                <?php for ($i = 0; $i < count($product_id); $i++) { ?>
-                                    <tr class="productrow">
-                                        <td>Products</td>
-                                        <td class="btn-group w-100">
-                                            <div class="w-50 p-2">
-                                                <label for="product1">Item 1</label>
-                                                <?php
-                                                $selected = isset($_POST['product_id']) ? $product_id[$i] : "";
-                                                ?>
-                                                <select name='product_id[]' class="form-control" id="product1">
-                                                    <option value="">--- Choose item ---</option>
-                                                    <?php
-                                                    foreach ($product as $p) { ?>
-                                                        <option value="<?php echo $p['id']; ?>" <?php if ($p['id'] == $selected) echo "selected"; ?>>
-                                                            <?php echo $p['name']; ?>
-                                                        </option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-
-                                            <div class="w-20 p-2">
-                                                <label for="quantity">Quantity</label>
-                                                <input type='number' min=0 name='quantity[]' class="form-control" value="<?php if ($_POST) echo $quantity[$i]  ?>" />
-                                            </div>
-                                        <?php } ?>
-
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <!--chech bootstrap not working-->
-                                            <button type="button" class="add_one btn btn-outline-dark">Add More Product</button>
-                                            <button type="button" class="del_last btn btn-outline-dark">Delete Last Product</button>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <input type='submit' value='Save' class='btn btn-primary' />
-                                            <a href='order_summary.php' class='btn btn-danger'>Back</a>
-                                        </td>
-                                    </tr>
-                            </tbody>
-                        </table>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type='submit' value='Save' class='btn btn-primary' />
+                                        <a href='order_summary.php' class='btn btn-danger'>Back</a>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            </form>
-            <?php
-            include("footer.php");
-            ?>
-        </main>
-    </div>
+        </form>
+        <?php
+        include("footer.php");
+        ?>
+
+        </div>
+    </main>
     <!--   Core JS Files   -->
     <script>
         document.addEventListener('click', function(event) {
