@@ -26,10 +26,8 @@ session_start();
 
 <body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php
-    include 'nav.php';
-    ?>
-    <main class="main-content position-relative border-radius-lg">
+    <div class="container me-1 pt-3 ps-7">
+
         <?php
         // include database connection
         include 'database/connection.php';
@@ -125,10 +123,12 @@ session_start();
             $user[] = $row;
         }
         ?>
-        <!-- Navbar -->
-        <!-- End Navbar -->
-        <!-- note:py-4 control distance above the button-->
-        <!-- Navbar -->
+    </div>
+    <!-- Navbar -->
+    <?php
+    include 'nav.php';
+    ?>
+    <main class="main-content position-relative border-radius-lg">
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
