@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +26,10 @@
 <?php
 // include database connection
 include 'database/connection.php';
-
+if (!isset($_SESSION['username'])) {
+  header("Location: index.php?action=nologin");
+  //go to the first page if the person didnt log in
+}
 // delete message prompt will be here
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 

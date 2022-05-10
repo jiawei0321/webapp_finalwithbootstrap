@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +30,11 @@ $id = isset($_GET['id']) ? $_GET['id'] :  die('ERROR: Record ID not found.');
 // include database connection
 include 'database/connection.php';
 include 'function/function.php';
+
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php?action=nologin");
+    //go to the first page if the person didnt log in
+}
 
 $query = "SELECT orderdetail_id, order_id, product_id, price, name, quantity 
 FROM orderdetail 

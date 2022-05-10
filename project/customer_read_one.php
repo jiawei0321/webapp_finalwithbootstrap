@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,6 +33,11 @@ if (isset($_GET['id'])) {
 // include database connection
 include 'database/connection.php';
 include 'function/function.php';
+
+if (!isset($_SESSION['username'])) {
+  header("Location: index.php?action=nologin");
+  //go to the first page if the person didnt log in
+}
 // read current record's data
 try {
   // prepare select query

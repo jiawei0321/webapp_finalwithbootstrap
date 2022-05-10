@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +48,11 @@
             // include database connection
             include 'database/connection.php';
             include 'function/function.php';
+
+            if (!isset($_SESSION['username'])) {
+                header("Location: index.php?action=nologin");
+                //go to the first page if the person didnt log in
+            }
 
             // keep value in form after submit
             $username = $password = $confirmpassword = $email = $firstname = $lastname = $dob = $gender = $status = $image = $cust_image = "";

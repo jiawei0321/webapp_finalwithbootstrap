@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,6 +49,10 @@
             include 'database/connection.php';
             include 'function/function.php';
 
+            if (!isset($_SESSION['username'])) {
+                header("Location: index.php?action=nologin");
+                //go to the first page if the person didnt log in
+            }
             // keep value in form after submit
             $name = $description = $price = $product_image = "";
             if ($_POST) {
