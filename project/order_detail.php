@@ -76,7 +76,7 @@ $num = $stmt->rowCount();
         <!-- note:py-4 control distance above the button-->
         <div class="container-fluid py-4">
             <div class="col-12 text-start pb-4">
-                <a class="btn bg-gradient-dark mb-0" href="order_summary.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Order Summary</a>
+                <a class="btn bg-gradient-dark mb-0" href="order_summary.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Order List</a>
             </div>
             <div class="row">
                 <div class="col-12">
