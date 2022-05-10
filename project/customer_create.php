@@ -86,7 +86,6 @@ session_start();
                 if ($_FILES['cust_image']['size'] > (5120000)) {
                     $file_upload_error_messages = "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Image must be less than 5 MB in size.</p></div>";
                 }
-
                 if (empty($file_upload_error_messages)) {
                     // it means there are no errors, so try to upload the file (now only start uploading)
                     if (!move_uploaded_file($_FILES["cust_image"]["tmp_name"], $target_file)) {
@@ -117,42 +116,44 @@ session_start();
             if (empty($_POST['username']) || empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['gender']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['confirmpassword']) || empty($_POST['status'])) {
                 $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
             }
-            //Starting ^,And end $, in the string there has to be at least 1 number(?=.*\d), and at least one letter(?=.*[A-Za-z])and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]and there have to be 8-12 characters -> {6,15} '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,15}$/'
-            //if match these continue, if not, go error.
-            if (!preg_match('/^[a-zA-Z0-9]{6,}$/', $username) && !preg_match('/^(?!.* )$/', $username)) {
-                $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Username must only be at least 6 characters and no space.</p></div>";
-            }
-            if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,}$/', $password)) {
-                $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Password must be minimum 6 characters, contain at least a number, a small letter and a capital letter.</p></div>";
-            }
+            if ($file_upload_error_messages == "") {
 
-            if ($password  != $confirmpassword) {
-                $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Password and confirm password does not match.</p></div>";
-            }
+                //Starting ^,And end $, in the string there has to be at least 1 number(?=.*\d), and at least one letter(?=.*[A-Za-z])and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]and there have to be 8-12 characters -> {6,15} '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,15}$/'
+                //if match these continue, if not, go error.
+                if (!preg_match('/^[a-zA-Z0-9]{6,}$/', $username) && !preg_match('/^(?!.* )$/', $username)) {
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Username must only be at least 6 characters and no space.</p></div>";
+                }
+                if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,}$/', $password)) {
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Password must be minimum 6 characters, contain at least a number, a small letter and a capital letter.</p></div>";
+                }
 
-            if ($age <= 18) {
-                $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Customer must be above 18 years old.</p></div>";
-            }
-            $query = "SELECT * FROM customers WHERE username=:username";
-            $stmt = $con->prepare($query);
-            $stmt->bindParam(':username', $username);
-            //fix error execute the statement
-            $stmt->execute();
-            //fix error fetch result
-            $numRow = $stmt->rowCount();
+                if ($password  != $confirmpassword) {
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Password and confirm password does not match.</p></div>";
+                }
 
-            if ($numRow > 0) {
-                $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Username is taken by others.</p></div>";
-            }
-            echo $error;
+                if ($age <= 18) {
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Customer must be above 18 years old.</p></div>";
+                }
+                $query = "SELECT * FROM customers WHERE username=:username";
+                $stmt = $con->prepare($query);
+                $stmt->bindParam(':username', $username);
+                //fix error execute the statement
+                $stmt->execute();
+                //fix error fetch result
+                $numRow = $stmt->rowCount();
 
-            if ($error == "") {
-                try {
-                    $password = md5($_POST['password']);
-                    $confirmpassword = md5($_POST['confirmpassword']);
+                if ($numRow > 0) {
+                    $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Username is taken by others.</p></div>";
+                }
+                echo $error;
 
-                    // insert query
-                    $query = "INSERT INTO customers SET 
+                if ($error == "") {
+                    try {
+                        $password = md5($_POST['password']);
+                        $confirmpassword = md5($_POST['confirmpassword']);
+
+                        // insert query
+                        $query = "INSERT INTO customers SET 
                             username =:username, 
                             password =:password,
                             email =:email,
@@ -164,33 +165,34 @@ session_start();
                             cust_image=:cust_image";
 
 
-                    // prepare query for execution
-                    $stmt = $con->prepare($query);
+                        // prepare query for execution
+                        $stmt = $con->prepare($query);
 
-                    // bind the parameters
-                    $stmt->bindParam(':username', $username);
-                    $stmt->bindParam(':password', $password);
-                    $stmt->bindParam(':email', $email);
-                    $stmt->bindParam(':firstname', $firstname);
-                    $stmt->bindParam(':lastname', $lastname);
-                    $stmt->bindParam(':dob', $dob);
-                    $stmt->bindParam(':gender', $gender);
-                    $stmt->bindParam(':status', $status);
-                    $stmt->bindParam(':cust_image', $cust_image);
+                        // bind the parameters
+                        $stmt->bindParam(':username', $username);
+                        $stmt->bindParam(':password', $password);
+                        $stmt->bindParam(':email', $email);
+                        $stmt->bindParam(':firstname', $firstname);
+                        $stmt->bindParam(':lastname', $lastname);
+                        $stmt->bindParam(':dob', $dob);
+                        $stmt->bindParam(':gender', $gender);
+                        $stmt->bindParam(':status', $status);
+                        $stmt->bindParam(':cust_image', $cust_image);
 
-                    // Execute the query
-                    if ($stmt->execute()) {
+                        // Execute the query
+                        if ($stmt->execute()) {
 
-                        //$customer_id = $con->lastInsertId();
-                        //echo "<div class='alert alert-success'>Record was saved.</div>";
-                        header('Location: customer_read.php?action=saved');
-                    } else {
-                        echo "<div class='alert alert-danger'>Unable to save record.</div>";
+                            //$customer_id = $con->lastInsertId();
+                            //echo "<div class='alert alert-success'>Record was saved.</div>";
+                            header('Location: customer_read.php?action=saved');
+                        } else {
+                            echo "<div class='alert alert-danger'>Unable to save record.</div>";
+                        }
                     }
-                }
-                // show error
-                catch (PDOException $exception) {
-                    die('ERROR: ' . $exception->getMessage());
+                    // show error
+                    catch (PDOException $exception) {
+                        die('ERROR: ' . $exception->getMessage());
+                    }
                 }
             }
         }

@@ -27,7 +27,6 @@ session_start();
 <body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
     <div class="container me-1 pt-3 ps-7">
-
         <?php
         // include database connection
         include 'database/connection.php';
@@ -218,8 +217,6 @@ session_start();
         <?php
         include("footer.php");
         ?>
-
-        </div>
     </main>
     <!--   Core JS Files   -->
     <script>
