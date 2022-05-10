@@ -130,6 +130,7 @@
                 if (empty($_POST['username']) || empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['gender']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['confirmpassword']) || empty($_POST['status'])) {
                     $error = $error . "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
                 }
+                if (!$file_upload_error_messages == "") {}
                 //Starting ^,And end $, in the string there has to be at least 1 number(?=.*\d), and at least one letter(?=.*[A-Za-z])and it has to be a number, a letter or one of the following: !@#$% -> [0-9A-Za-z!@#$%]and there have to be 8-12 characters -> {6,15} '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,15}$/'
                 //if match these continue, if not, go error.
                 if (!preg_match('/^[a-zA-Z0-9]{6,}$/', $username) && !preg_match('/^(?!.* )$/', $username)) {
@@ -181,8 +182,6 @@
 
                         // prepare query for execution
                         $stmt = $con->prepare($query);
-
-
 
                         // bind the parameters
                         $stmt->bindParam(':username', $username);

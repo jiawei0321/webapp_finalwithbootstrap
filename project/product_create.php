@@ -92,59 +92,62 @@ session_start();
             }
             if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price'])) {
 
-                //let letter and space ok pass
-                if (ctype_alpha(str_replace(' ', '', $name))) {
+                if ($file_upload_error_messages == "") {
 
-                    if (is_numeric($_POST['price'])) {
+                    //let letter and space ok pass
+                    if (ctype_alpha(str_replace(' ', '', $name))) {
 
-                        // posted values
-                        //$name = $_POST['name'];
-                        //$description = $_POST['description'];
-                        //$price = $_POST['price'];
+                        if (is_numeric($_POST['price'])) {
 
-                        try {
-                            // insert query
-                            $query = "INSERT INTO products
+                            // posted values
+                            //$name = $_POST['name'];
+                            //$description = $_POST['description'];
+                            //$price = $_POST['price'];
+
+                            try {
+                                // insert query
+                                $query = "INSERT INTO products
                                 SET name=:name, description=:description,
                                 price=:price, product_image=:product_image, created=:created";
 
-                            // prepare query for execution
-                            $stmt = $con->prepare($query);
+                                // prepare query for execution
+                                $stmt = $con->prepare($query);
 
-                            //$name = htmlspecialchars(strip_tags($_POST['name']));
-                            //$description = htmlspecialchars(strip_tags($_POST['description']));
-                            //$price = htmlspecialchars(strip_tags($_POST['price']));
-                            //$product_image = htmlspecialchars(strip_tags($product_image));
+                                //$name = htmlspecialchars(strip_tags($_POST['name']));
+                                //$description = htmlspecialchars(strip_tags($_POST['description']));
+                                //$price = htmlspecialchars(strip_tags($_POST['price']));
+                                //$product_image = htmlspecialchars(strip_tags($product_image));
 
-                            // bind the parameters
-                            $stmt->bindParam(':name', $name);
-                            $stmt->bindParam(':description', $description);
-                            $stmt->bindParam(':price', $price);
-                            $stmt->bindParam(':product_image', $product_image);
+                                // bind the parameters
+                                $stmt->bindParam(':name', $name);
+                                $stmt->bindParam(':description', $description);
+                                $stmt->bindParam(':price', $price);
+                                $stmt->bindParam(':product_image', $product_image);
 
-                            // specify when this record was inserted to the database
-                            $created = date('Y-m-d H:i:s');
-                            $stmt->bindParam(':created', $created);
+                                // specify when this record was inserted to the database
+                                $created = date('Y-m-d H:i:s');
+                                $stmt->bindParam(':created', $created);
 
-                            // Execute the query
-                            if ($stmt->execute()) {
+                                // Execute the query
+                                if ($stmt->execute()) {
 
-                                //echo "<div class='alert alert-success'>Record was saved.</div>";
-                                header('Location: product_read.php?action=saved');
-                                // now, if image is not empty, try to upload the image
-                            } else {
-                                echo "<div class='alert alert-danger'>Unable to save record.</div>";
+                                    //echo "<div class='alert alert-success'>Record was saved.</div>";
+                                    header('Location: product_read.php?action=saved');
+                                    // now, if image is not empty, try to upload the image
+                                } else {
+                                    echo "<div class='alert alert-danger'>Unable to save record.</div>";
+                                }
                             }
-                        }
-                        // show error
-                        catch (PDOException $exception) {
-                            die('ERROR: ' . $exception->getMessage());
+                            // show error
+                            catch (PDOException $exception) {
+                                die('ERROR: ' . $exception->getMessage());
+                            }
+                        } else {
+                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in number in price.</p></div>";
                         }
                     } else {
-                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in number in price.</p></div>";
+                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in letters in name.</p></div>";
                     }
-                } else {
-                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in letters in name.</p></div>";
                 }
             } else {
                 //echo "<div class='container me-5 pt-3'>";
