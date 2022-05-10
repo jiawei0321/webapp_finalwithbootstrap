@@ -176,8 +176,6 @@
                         // prepare query for execution
                         $stmt = $con->prepare($query);
 
-
-
                         // bind the parameters
                         $stmt->bindParam(':username', $username);
                         $stmt->bindParam(':password', $password);
