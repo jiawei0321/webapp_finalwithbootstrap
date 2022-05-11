@@ -53,55 +53,55 @@ session_start();
 
             if (empty($_POST['username']) || empty(array_filter($_POST['product_id'])) || empty(array_filter($_POST['quantity']))) {
                 echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
-            }
-            if (count(array_unique($productchosen)) != $total) {
-                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose different items.</p></div>";
-                //echo count($productchosen);
             } else {
+                if (count($quantity) > 0) {
+                    if (count(array_unique($productchosen)) != $total) {
+                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose different items.</p></div>";
+                    } else {
+                        //if (count($quantity) != 0) {
+                        try {
+                            $query = "INSERT INTO `ordersummary` (`customer_id`) VALUES (?)";
 
-                if (count($quantity) != 0) {
-                    try {
-                        $query = "INSERT INTO `ordersummary` (`customer_id`) VALUES (?)";
+                            // prepare query for execution
+                            $stmt = $con->prepare($query);
 
-                        // prepare query for execution
-                        $stmt = $con->prepare($query);
+                            // bind the parameters
+                            $stmt->bindParam(1, $username);
 
-                        // bind the parameters
-                        $stmt->bindParam(1, $username);
+                            // Execute the query
+                            if ($stmt->execute()) {
+                                $order_id = $con->lastInsertId();
+                                $orderdetail_id = $con->lastInsertId();
 
-                        // Execute the query
-                        if ($stmt->execute()) {
-                            $order_id = $con->lastInsertId();
-                            $orderdetail_id = $con->lastInsertId();
-
-                            //foreach ($product_id as $x => $oneproductid) {
-                            for ($x = 0; $x < count($product_id); $x++) {
-                                $query = "INSERT INTO `orderdetail` (`order_id`, `product_id`, `quantity`) VALUES (?, ?, ?)";
-                                // prepare query for execution
-                                $stmt = $con->prepare($query);
-                                // posted values
-                                $stmt->bindParam(1, $order_id);
-                                //$stmt->bindParam(2, $oneproductid);
-                                $stmt->bindParam(2, $product_id[$x]);
-                                $stmt->bindParam(3, $quantity[$x]);
-                                // Execute the query
-                                if ($stmt->execute()) {
-                                    if ($x == (count($product_id)) - 1) {
-                                        //echo "<div class='alert alert-success'>Record was updated.</div>";
-                                        header('Location: order_summary.php?action=saved');
-                                    }
-                                } else {
-                                    if ($x == (count($product_id)) - 1) {
-                                        echo "<div class='alert alert-danger'><p class='text-white mb-0'>Unable to update record.</p></div>";
+                                //foreach ($product_id as $x => $oneproductid) {
+                                for ($x = 0; $x < count($product_id); $x++) {
+                                    $query = "INSERT INTO `orderdetail` (`order_id`, `product_id`, `quantity`) VALUES (?, ?, ?)";
+                                    // prepare query for execution
+                                    $stmt = $con->prepare($query);
+                                    // posted values
+                                    $stmt->bindParam(1, $order_id);
+                                    //$stmt->bindParam(2, $oneproductid);
+                                    $stmt->bindParam(2, $product_id[$x]);
+                                    $stmt->bindParam(3, $quantity[$x]);
+                                    // Execute the query
+                                    if ($stmt->execute()) {
+                                        if ($x == (count($product_id)) - 1) {
+                                            //echo "<div class='alert alert-success'>Record was updated.</div>";
+                                            header('Location: order_summary.php?action=saved');
+                                        }
+                                    } else {
+                                        if ($x == (count($product_id)) - 1) {
+                                            echo "<div class='alert alert-danger'><p class='text-white mb-0'>Unable to update record.</p></div>";
+                                        }
                                     }
                                 }
                             }
+                            //show error after submit
+                        } catch (PDOException $exception) {
+                            die('ERROR: ' . $exception->getMessage());
                         }
-
-                        //show error after submit
-                    } catch (PDOException $exception) {
-                        die('ERROR: ' . $exception->getMessage());
                     }
+                    //}
                 }
             }
         }
