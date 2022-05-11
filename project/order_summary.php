@@ -62,7 +62,7 @@ session_start();
 
         // select all data
 
-        $query = "SELECT order_id, customer_id, orderdate FROM ordersummary ORDER BY order_id ASC";
+        $query = "SELECT order_id, ordersummary.customer_id, orderdate, firstname, lastname FROM ordersummary INNER JOIN customers ON ordersummary.customer_id = customers.customer_id ORDER BY order_id DESC";
         //prepare above variable
         $stmt = $con->prepare($query);
         $stmt->execute();
@@ -70,6 +70,7 @@ session_start();
         // this is how to get number of rows returned
         //see total how many product
         $num = $stmt->rowCount();
+
         ?>
 
 
@@ -109,6 +110,7 @@ session_start();
                                             <tr>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order ID</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer ID</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer Fullname</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">OrderDate</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                                 <th class="text-secondary opacity-7"></th>
@@ -131,6 +133,14 @@ session_start();
                                         //<span class="badge badge-sm bg-gradient-success">Online</span>
                                         echo "<span class='text-secondary text-xs font-weight-bold'>{$customer_id}</span>";
                                         echo "</td>";
+                                        echo "</td>";
+                                        echo "<td class='align-middle text-center text-sm'>";
+                                        //<span class="badge badge-sm bg-gradient-success">Online</span>
+                                        echo "<span class='text-secondary text-xs font-weight-bold'>{$firstname}</span>";
+                                        echo " ";
+                                        echo "<span class='text-secondary text-xs font-weight-bold'>{$lastname}</span>";
+                                        echo "</td>";
+
                                         echo "<td class='align-middle text-center'>";
                                         echo "<span class='text-secondary text-xs font-weight-bold'>{$orderdate}</span>";
                                         echo "</td>";
