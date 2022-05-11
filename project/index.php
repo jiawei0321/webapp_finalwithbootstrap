@@ -139,7 +139,7 @@ if ($_POST) {
            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('../project/assets/img/indexpic.jpg'); background-size: cover;">
                 <span class="mask bg-gradient-primary opacity-6"></span>
                 <h4 class="mt-5 text-white font-weight-bolder position-relative">"Good quality product at affordable price"</h4>
-                <p class="text-white position-relative">Start Shopping on JW shop.</p>
+                <h5 class="text-white position-relative">Start Shopping on JW shop.</h5>
               </div>
             </div>
           </div>
