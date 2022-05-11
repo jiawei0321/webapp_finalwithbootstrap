@@ -69,7 +69,6 @@ if ($_POST) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $num = $stmt->rowCount();
 
-
     if ($num == 0) {
       //echo "<div class='alert alert-danger' role='alert'>User not found.</div>";
       echo "<div class='container pt-3'>";
