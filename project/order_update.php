@@ -94,59 +94,66 @@ session_start();
             $quantity =  $_POST['quantity'];
 
             //$productchosen = array($product_id[0], $product_id[1], $product_id[2]);
-            $total = count($product_id);
+
+            $productchosen = array_values($product_id);
+            $total = count($productchosen);
+            //$total = count($product_id);
             //$uu = $row['customer_id'];
             //echo $total;
-            $uu = isset($row['username']) ? $row['username'] : "";
+            $u = isset($row['username']) ? $row['username'] : "";
 
             if (empty($_POST['username']) || empty($_POST['product_id']) || empty($_POST['quantity'])) {
                 echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in all the information.</p></div>";
-            }
-            if (count(array_unique($product_id)) != $total) {
-                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose 3 different items.</p></div>";
             } else {
+                if (count($quantity) > 0) {
+                    if (count(array_unique($productchosen)) != $total) {
+                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please choose different items.</p></div>";
+                    } else {
 
-                try {
-                    // write update query
+                        try {
+                            // write update query
 
-                    $query = "UPDATE ordersummary SET customer_id=:customer_id WHERE order_id = :order_id ";
+                            $query = "UPDATE ordersummary SET customer_id=:customer_id WHERE order_id = :order_id ";
 
-                    // prepare query for excecution
-                    $stmt = $con->prepare($query);
-
-                    // bind the parameters
-                    $stmt->bindParam(':customer_id', $customer_id);
-                    $stmt->bindParam(':order_id', $id);
-
-                    // Execute the query
-                    if ($stmt->execute()) {
-                        for ($x = 0; $x < count($product_id); $x++) {
-                            $query = "UPDATE orderdetail SET  product_id = ?, quantity = ? WHERE orderdetail_id = ?";
+                            // prepare query for excecution
                             $stmt = $con->prepare($query);
-                            $stmt->bindParam(1, $product_id[$x]);
-                            $stmt->bindParam(2, $quantity[$x]);
-                            $stmt->bindParam(3, $orderdetail_id[$x]);
 
+                            // bind the parameters
+                            $stmt->bindParam(':customer_id', $customer_id);
+                            $stmt->bindParam(':order_id', $id);
 
+                            // Execute the query
                             if ($stmt->execute()) {
-                                if ($x == (count($product_id)) - 1) {
-                                    header('Location: order_summary.php?action=saved');
-                                    //echo "<div class='alert alert-success'>Record was updated.</div>";
-                                }
-                            } else {
-                                if ($x == (count($product_id)) - 1) {
-                                    echo "<div class='alert alert-danger'>Unable to update record.</div>";
+                                for ($x = 0; $x < count($product_id); $x++) {
+                                    $query = "UPDATE orderdetail SET  product_id = ?, quantity = ? WHERE orderdetail_id = ?";
+                                    $stmt = $con->prepare($query);
+                                    $stmt->bindParam(1, $product_id[$x]);
+                                    $stmt->bindParam(2, $quantity[$x]);
+                                    $stmt->bindParam(3, $orderdetail_id[$x]);
+
+
+                                    if ($stmt->execute()) {
+                                        if ($x == (count($product_id)) - 1) {
+                                            header('Location: order_summary.php?action=saved');
+                                            //echo "<div class='alert alert-success'>Record was updated.</div>";
+                                        }
+                                    } else {
+                                        if ($x == (count($product_id)) - 1) {
+                                            echo "<div class='alert alert-danger'>Unable to update record.</div>";
+                                        }
+                                    }
                                 }
                             }
                         }
+                        // show errors
+                        catch (PDOException $exception) {
+                            die('ERROR: ' . $exception->getMessage());
+                        }
                     }
-                }
-                // show errors
-                catch (PDOException $exception) {
-                    die('ERROR: ' . $exception->getMessage());
                 }
             }
         }
+
         //fetch product
         $product = array();
         $query = "SELECT name, id FROM products";
@@ -237,14 +244,19 @@ session_start();
                                         </div>
                                 </tr>
                             <?php } ?>
-
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <input type='submit' value='Save Changes' class='btn btn-primary btn bg-gradient-primary mb-0' />
-                                    <a class="btn bg-gradient-dark mb-0" href="order_summary.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Order List</a>
-                                </td>
-                            </tr>
+                            <td></td>
+                            <td>
+                                <!--chech bootstrap not working-->
+                                <button type="button" class="add_one btn btn-outline-dark">Add More Product</button>
+                                <button type="button" class="del_last btn btn-outline-dark">Delete Last Product</button>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type='submit' value='Save Changes' class='btn btn-primary btn bg-gradient-primary mb-0' />
+                                        <a class="btn bg-gradient-dark mb-0" href="order_summary.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Order List</a>
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -254,6 +266,22 @@ session_start();
             ?>
         </form>
     </main>
+    <script>
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('.add_one')) {
+                var element = document.querySelector('.productrow');
+                var clone = element.cloneNode(true);
+                element.after(clone);
+            }
+            if (event.target.matches('.del_last')) {
+                var total = document.querySelectorAll('.productrow').length;
+                if (total > 1) {
+                    var element = document.querySelector('.productrow');
+                    element.remove(element);
+                }
+            }
+        }, false);
+    </script>
     <!--   Core JS Files   -->
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap.min.js"></script>

@@ -146,9 +146,9 @@ catch (PDOException $exception) {
                             <?php
                             //$image = htmlspecialchars($row['image'], ENT_QUOTES);
                             if ($cust_image == "") {
-                              echo "<img src ='uploads/default_profile_image.jpg' class='rounded' width='80px' height='80px'>";
+                              echo "<img src ='uploads/default_profile_image.jpg' class='rounded' width='100px' height='100px'>";
                             } else {
-                              echo "<img src ='uploads/{$cust_image}' class='avatar' width='100px' height='100px'>";
+                              echo "<img src ='uploads/{$cust_image}' class='rounded' width='100px' height='100px'>";
                             }
                             ?>
                       </td>
