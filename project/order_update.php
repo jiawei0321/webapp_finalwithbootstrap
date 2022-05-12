@@ -215,6 +215,7 @@ session_start();
                                                 <?php } ?>
                                             </select>
                                         </div>
+                                    </td>
                             </tr>
                             <?php for ($i = 0; $i < count($product_id); $i++) { ?>
                                 <tr class="productrow">
@@ -253,7 +254,7 @@ session_start();
                                 <tr>
                                     <td></td>
                                     <td>
-                                        <input type='submit' value='Save Changes' class='btn btn-primary btn bg-gradient-primary mb-0' />
+                                        <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0' />
                                         <a class="btn bg-gradient-dark mb-0" href="order_summary.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Order List</a>
                                     </td>
                                 </tr>

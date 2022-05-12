@@ -145,26 +145,23 @@ session_start();
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="post">
             <div class="card mb-4 mx-4">
                 <div class="card-body px-md-7 px-sm-2 py-5">
-                    <!--to adjyst box in card we have our html form here where new record information can be updated-->
-
                     <table class='table table-hover table-responsive'>
                         <tr>
-                            <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Name</th>
-                            <td><input type='text' name='name' value="<?php echo htmlspecialchars($name, ENT_QUOTES);  ?>" class='form-control' style="max-width: 85%" /></td>
+                            <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Name</th>
+                            <td style="border: none"><input type='text' name='name' value="<?php echo htmlspecialchars($name, ENT_QUOTES);  ?>" class='form-control' style="max-width: 85%" /></td>
                         </tr>
                         <tr>
-                            <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Description</th>
-                            <td><textarea name='description' class='form-control' style="max-width: 85%"><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></textarea></td>
+                            <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Description</th>
+                            <td style="border: none"><textarea name='description' class='form-control' style="max-width: 85%"><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></textarea></td>
                         </tr>
                         <tr>
-                            <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Price</th>
-                            <td><input type='text' name='price' value="<?php echo htmlspecialchars($price, ENT_QUOTES);  ?>" class='form-control' style="max-width: 85%" /></td>
+                            <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Price</th>
+                            <td style="border: none"><input type='text' name='price' value="<?php echo htmlspecialchars($price, ENT_QUOTES);  ?>" class='form-control' style="max-width: 85%" /></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
-
-                                <input type='submit' value='Save Changes' class='btn btn-primary btn bg-gradient-primary mb-0' />
+                                <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0' />
                                 <a class="btn bg-gradient-dark mb-0" href="product_read.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Product List</a>
                             </td>
                         </tr>

@@ -182,24 +182,24 @@ session_start();
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
             <div class="card mb-4 mx-4">
-                <div class="card-body px-7 py-5">
+                <div class="card-body px-md-7 px-sm-2 py-5">
                     <table class='table table-hover table-responsive'>
                         <tbody>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Name</th>
-                                <td><input type='text' name='name' class='form-control' style="max-width: 85%" value="<?php echo $name; ?>" /></td>
+                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Name</th>
+                                <td style="border: none"><input type='text' name='name' class='form-control' style="max-width: 85%" value="<?php echo $name; ?>" /></td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Description</th>
-                                <td><textarea name='description' class='form-control' style="max-width: 85%" value="<?php echo $description; ?>"></textarea></td>
+                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Description</th>
+                                <td style="border: none"><textarea name='description' class='form-control' style="max-width: 85%" value="<?php echo $description; ?>"></textarea></td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Price</th>
-                                <td><input type='text' name='price' class='form-control' style="max-width: 85%" value="<?php echo $price; ?>" /></td>
+                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Price</th>
+                                <td style="border: none"><input type='text' name='price' class='form-control' style="max-width: 85%" value="<?php echo $price; ?>" /></td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Photo (optional)</th>
-                                <td><input type="file" name="product_image" /></td>
+                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Photo (optional)</th>
+                                <td style="border: none"><input type="file" name="product_image" style="max-width: 85%" /></td>
                             </tr>
                             <tr>
                                 <td></td>
