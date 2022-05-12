@@ -148,7 +148,7 @@ session_start();
                     <table class='table table-hover table-responsive'>
                         <tbody>
                             <tr>
-                                <div class="<d-flex flex-row mb-3">
+                               <!-- <div class="<d-flex flex-row mb-3">-->
                                   
                                     <td style="border: none" class="btn-group w-100">
                                         <div class="w-85 p-2">

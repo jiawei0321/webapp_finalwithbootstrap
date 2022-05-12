@@ -361,9 +361,14 @@ session_start();
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Photo (optional)</td>
-                                <td style="border: none"><input type="file" name="cust_image" />
+                                <td>
+                                    <label style="border: none" class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Photo (optional)</label>
+                                    <br>
+                                    <input type="file" name="cust_image" />
                                 </td>
+                                <!--<td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Photo (optional)</td>
+                                <td style="border: none"><input type="file" name="cust_image" />
+                                </td>-->
                             </tr>
                             <tr>
                                 <td></td>
