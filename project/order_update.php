@@ -198,10 +198,10 @@ session_start();
                         <tbody>
                             <tr>
                                 <div class="<d-flex flex-row mb-3">
-                                    <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Username</td>
+
                                     <td style="border: none" class="btn-group w-100">
-                                        <div class="w-60 p-2">
-                                            <label for="username">Username</label>
+                                        <div class="w-85 p-2">
+                                            <label for="username" class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Username</label>
                                             <?php
                                             $selected = isset($_POST["username"]) ? $_POST["username"] : $customer_id;
                                             ?>
@@ -219,10 +219,9 @@ session_start();
                             </tr>
                             <?php for ($i = 0; $i < count($product_id); $i++) { ?>
                                 <tr class="productrow">
-                                    <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Products</td>
                                     <td class="btn-group w-100">
                                         <div class="w-60 p-2">
-                                            <label for="prodcut1">Item</label>
+                                            <label for="prodcut1" class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Item</label>
                                             <?php
                                             $selected = htmlspecialchars(strip_tags($product_id[$i]));
                                             ?>
@@ -239,22 +238,22 @@ session_start();
                                         </div>
 
                                         <div class="w-25 p-2">
-                                            <label for="quantity">Quantity</label>
+                                            <label for="quantity" class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Quantity</label>
                                             <input type='number' min=0 name='quantity[]' class="form-control" value="<?php echo $quantity[$i] ?>" />
                                             <input type="hidden" name="orderdetail_id[]" value="<?php echo $orderdetail_id[$i] ?>">
                                         </div>
                                 </tr>
                             <?php } ?>
-                            <td></td>
+                            
                             <td>
                                 <!--chech bootstrap not working-->
-                                <button type="button" class="add_one btn btn-outline-dark">Add Product</button>
+                                <button type="button" class="add_one btn btn-outline-dark me-3">Add Product</button>
                                 <button type="button" class="del_last btn btn-outline-dark">Delete Product</button>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                  
                                     <td>
-                                        <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0' />
+                                        <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0 me-3' />
                                         <a class="btn bg-gradient-dark mb-0" href="order_summary.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Order List</a>
                                     </td>
                                 </tr>
