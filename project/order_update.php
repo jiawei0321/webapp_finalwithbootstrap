@@ -192,21 +192,21 @@ session_start();
         </nav>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="post">
             <div class="card mb-4 mx-4">
-                <div class="card-body px-7 py-5">
+                <div class="card-body px-md-7 px-sm-2 py-5">
 
                     <table class='table table-hover table-responsive'>
                         <tbody>
                             <tr>
                                 <div class="<d-flex flex-row mb-3">
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Username</td>
-                                    <td class="btn-group w-100">
-                                        <div class="w-50 p-2">
+                                    <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Username</td>
+                                    <td style="border: none" class="btn-group w-100">
+                                        <div class="w-60 p-2">
                                             <label for="username">Username</label>
                                             <?php
                                             $selected = isset($_POST["username"]) ? $_POST["username"] : $customer_id;
                                             ?>
                                             <select name='username' class="form-control" id="username">
-                                                <option value="">--- Choose username ---</option>
+                                                <option value="">-- Choose username --</option>
                                                 <?php
                                                 foreach ($user as $u) { ?>
                                                     <option value="<?php echo $u['customer_id']; ?>" <?php if ($u['customer_id'] == $selected) echo "selected"; ?>>
@@ -219,15 +219,15 @@ session_start();
                             </tr>
                             <?php for ($i = 0; $i < count($product_id); $i++) { ?>
                                 <tr class="productrow">
-                                    <td>Products</td>
+                                    <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Products</td>
                                     <td class="btn-group w-100">
-                                        <div class="w-50 p-2">
-                                            <label for="prodcut1">Item 1</label>
+                                        <div class="w-60 p-2">
+                                            <label for="prodcut1">Item</label>
                                             <?php
                                             $selected = htmlspecialchars(strip_tags($product_id[$i]));
                                             ?>
                                             <select name='product_id[]' class="form-control" id="product1">
-                                                <option value="">--- Choose item ---</option>
+                                                <option value="">-- Choose item --</option>
                                                 <?php
                                                 foreach ($product as $p) { ?>
                                                     <option value="<?php echo $p['id']; ?>" <?php if ($p['id'] == $selected) echo "selected"; ?>>
@@ -238,7 +238,7 @@ session_start();
 
                                         </div>
 
-                                        <div class="w-20 p-2">
+                                        <div class="w-25 p-2">
                                             <label for="quantity">Quantity</label>
                                             <input type='number' min=0 name='quantity[]' class="form-control" value="<?php echo $quantity[$i] ?>" />
                                             <input type="hidden" name="orderdetail_id[]" value="<?php echo $orderdetail_id[$i] ?>">
@@ -248,8 +248,8 @@ session_start();
                             <td></td>
                             <td>
                                 <!--chech bootstrap not working-->
-                                <button type="button" class="add_one btn btn-outline-dark">Add More Product</button>
-                                <button type="button" class="del_last btn btn-outline-dark">Delete Last Product</button>
+                                <button type="button" class="add_one btn btn-outline-dark">Add Product</button>
+                                <button type="button" class="del_last btn btn-outline-dark">Delete Product</button>
                                 </tr>
                                 <tr>
                                     <td></td>
