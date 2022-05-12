@@ -186,27 +186,27 @@ session_start();
                     <table class='table table-hover table-responsive'>
                         <tbody>
                             <tr>
-                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Name</th>
-                                <td style="border: none"><input type='text' name='name' class='form-control' style="max-width: 85%" value="<?php echo $name; ?>" /></td>
+                                <label class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Name</label>
+                                <input type='text' name='name' class='form-control' value="<?php echo $name; ?>" /></td>
                             </tr>
                             <tr>
-                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Description</th>
-                                <td style="border: none"><textarea name='description' class='form-control' style="max-width: 85%" value="<?php echo $description; ?>"></textarea></td>
+                                <label class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Description</label>
+                                <textarea name='description' class='form-control' value="<?php echo $description; ?>"></textarea></td>
                             </tr>
                             <tr>
-                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Price</th>
-                                <td style="border: none"><input type='text' name='price' class='form-control' style="max-width: 85%" value="<?php echo $price; ?>" /></td>
+                                <label style="border: none" class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Price</label>
+                                <input type='text' name='price' class='form-control' value="<?php echo $price; ?>" /></td>
                             </tr>
                             <tr>
-                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Photo (optional)</th>
-                                <td style="border: none"><input type="file" name="product_image" style="max-width: 85%" /></td>
+                                <label style="border: none" class="text-end text-uppercase text-secondary text-sm font-weight-bolder pt-4">Photo (optional)</label>
+                                <br>
+                                <input type="file" name="product_image" /></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>
-                                    <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0' />
-                                    <a class="btn bg-gradient-dark mb-0" href="product_read.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Product List</a>
-                                </td>
+                                    <div class="pt-4">
+                                        <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0 me-3'>
+                                        <a class="btn bg-gradient-dark mb-0" href="product_read.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Product List</a>
+                                    </div>
                             </tr>
                         </tbody>
                     </table>
