@@ -222,40 +222,40 @@ session_start();
         </nav>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
             <div class="card mb-4 mx-4">
-                <div class="card-body px-7 py-5">
+                <div class="card-body px-md-7 px-sm-2 py-5">
 
                     <table class="table table-hover table-responsive">
                         <tbody>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Username</th>
-                                <td><input type='text' name='username' class='form-control col-11' value="<?php echo $username; ?>" /></td>
+                                <label class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Username</label>
+                                <input type='text' name='username' class='form-control' value="<?php echo $username; ?>" /></td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Password</th>
-                                <td><input type='password' name='password' class='form-control' value="<?php echo $password; ?>" />
+                                <label class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Password</label>
+                                <input type='password' name='password' class='form-control' value="<?php echo $password; ?>" />
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Confirm Password</td>
-                                <td><input type='password' name='confirmpassword' class='form-control' value="<?php echo $confirmpassword; ?>" />
+                                <label class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Confirm Password</label>
+                                <input type='password' name='confirmpassword' class='form-control' value="<?php echo $confirmpassword; ?>" />
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Email</td>
-                                <td><input type='text' name='email' class='form-control' value="<?php echo $email; ?>" /></td>
+                                <label class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Email</label>
+                                <input type='text' name='email' class='form-control' value="<?php echo $email; ?>" /></td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">First Name</td>
-                                <td><input type='text' name='firstname' class='form-control' value="<?php echo $firstname; ?>" /></td>
+                                <label style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">First Name</label>
+                                <input type='text' name='firstname' class='form-control' value="<?php echo $firstname; ?>" /></td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Last Name</td>
-                                <td><input type='text' name='lastname' class='form-control' value="<?php echo $lastname; ?>" /></td>
+                                <label style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Last Name</label>
+                                <input type='text' name='lastname' class='form-control' value="<?php echo $lastname; ?>" /></td>
                             </tr>
                             <tr>
                                 <div class="<d-flex flex-row mb-3">
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Date of Birth</td>
-                                    <td class="btn-group w-100">
-                                        <div class="w-30 p-2">
+                                    <td style="border: none" class="text-start text-uppercase text-secondary text-xs font-weight-bolder">Date of Birth</td>
+                                    <td style="border: none" class="btn-group w-100">
+                                        <div class="w-20 p-2">
                                             <label for="day">Day:</label>
 
                                             <?php
@@ -274,9 +274,8 @@ session_start();
                                             </select>
                                         </div>
 
-                                        <div class="w-40 p-2">
+                                        <div class="w-30 p-2">
                                             <label for="month ">Month: </label>
-
                                             <?php
                                             // (int) to convert the posted month into integer or else it will be come a string
                                             $selected = isset($_POST["month"]) ? (int)$_POST["month"] : "";
@@ -294,7 +293,7 @@ session_start();
                                             </select>
                                         </div>
 
-                                        <div class="w-30 p-2">
+                                        <div class="w-20 p-2">
                                             <label for="year">Year:</label>
                                             <?php
                                             $selected = isset($_POST["year"]) ? (int)$_POST["year"] : "";
@@ -316,13 +315,12 @@ session_start();
                                 </div>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Gender</td>
-                                <td>
+                                <td style="border: none" class="text-start text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Gender</td>
+                                <td style="border: none">
                                     <!-- must use id -->
                                     <div class="pe-1">
                                         <input class="form-check-input" type="radio" id="male" name="gender" <?php if (isset($gender) && $gender == "male") echo "checked"; ?> value="male">
                                         <label class="from-check-label" for="Radio1">
-
                                             Male
                                         </label>
                                     </div>
@@ -343,7 +341,7 @@ session_start();
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Status</td>
+                                <td class="text-start text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Status</td>
                                 <td>
                                     <!-- must use id -->
                                     <div class="pe-1">
@@ -363,8 +361,8 @@ session_start();
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Photo (optional)</td>
-                                <td><input type="file" name="cust_image" />
+                                <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder px-3 col-1">Photo (optional)</td>
+                                <td style="border: none"><input type="file" name="cust_image" />
                                 </td>
                             </tr>
                             <tr>

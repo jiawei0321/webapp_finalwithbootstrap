@@ -27,101 +27,101 @@ session_start();
 <body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
     <div class="container me-1 pt-3 ps-7">
-    <?php
-    // isset() is a PHP function used to verify if a value is there or not
-    $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
-    // include database connection
-    include 'database/connection.php';
-    include 'function/function.php';
+        <?php
+        // isset() is a PHP function used to verify if a value is there or not
+        $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
+        // include database connection
+        include 'database/connection.php';
+        include 'function/function.php';
 
-    if (!isset($_SESSION['username'])) {
-        header("Location: index.php?action=nologin");
-        //go to the first page if the person didnt log in
-    }
-
-    if (!$_POST) {
-
-        // read current record's data
-        try {
-            // prepare select query
-            $query = "SELECT id, name, description, price FROM products WHERE id = ? LIMIT 0,1";
-            $stmt = $con->prepare($query);
-
-            // this is the first question mark
-            $stmt->bindParam(1, $id);
-
-            // execute our query
-            $stmt->execute();
-
-            // store retrieved row to a variable
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            // values to fill up our form
-            $name = $row['name'];
-            $description = $row['description'];
-            $price = $row['price'];
+        if (!isset($_SESSION['username'])) {
+            header("Location: index.php?action=nologin");
+            //go to the first page if the person didnt log in
         }
 
-        // show error
-        catch (PDOException $exception) {
-            die('ERROR: ' . $exception->getMessage());
+        if (!$_POST) {
+
+            // read current record's data
+            try {
+                // prepare select query
+                $query = "SELECT id, name, description, price FROM products WHERE id = ? LIMIT 0,1";
+                $stmt = $con->prepare($query);
+
+                // this is the first question mark
+                $stmt->bindParam(1, $id);
+
+                // execute our query
+                $stmt->execute();
+
+                // store retrieved row to a variable
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                // values to fill up our form
+                $name = $row['name'];
+                $description = $row['description'];
+                $price = $row['price'];
+            }
+
+            // show error
+            catch (PDOException $exception) {
+                die('ERROR: ' . $exception->getMessage());
+            }
         }
-    }
-    ?>
+        ?>
 
-    <!-- HTML form to update record will be here -->
-    <!-- PHP post to update record will be here -->
-    <?php
-    // check if form was submitted
-    if ($_POST) {
-        // posted values
-        $name = htmlspecialchars(strip_tags($_POST['name']));
-        $description = htmlspecialchars(strip_tags($_POST['description']));
-        $price = htmlspecialchars(strip_tags($_POST['price']));
+        <!-- HTML form to update record will be here -->
+        <!-- PHP post to update record will be here -->
+        <?php
+        // check if form was submitted
+        if ($_POST) {
+            // posted values
+            $name = htmlspecialchars(strip_tags($_POST['name']));
+            $description = htmlspecialchars(strip_tags($_POST['description']));
+            $price = htmlspecialchars(strip_tags($_POST['price']));
 
-        if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price'])) {
+            if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price'])) {
 
-            if (ctype_alpha(str_replace(' ', '', $name))) {
+                if (ctype_alpha(str_replace(' ', '', $name))) {
 
-                if (is_numeric($_POST['price'])) {
+                    if (is_numeric($_POST['price'])) {
 
-                    try {
-                        // write update query
-                        // in this case, it seemed like we have so many fields to pass and
-                        // it is better to label them and not use question marks
-                        $query = "UPDATE products
+                        try {
+                            // write update query
+                            // in this case, it seemed like we have so many fields to pass and
+                            // it is better to label them and not use question marks
+                            $query = "UPDATE products
                         SET name=:name, description=:description,
                         price=:price WHERE id = :id";
-                        // prepare query for excecution
-                        $stmt = $con->prepare($query);
+                            // prepare query for excecution
+                            $stmt = $con->prepare($query);
 
-                        // bind the parameters
-                        $stmt->bindParam(':name', $name);
-                        $stmt->bindParam(':description', $description);
-                        $stmt->bindParam(':price', $price);
-                        $stmt->bindParam(':id', $id);
+                            // bind the parameters
+                            $stmt->bindParam(':name', $name);
+                            $stmt->bindParam(':description', $description);
+                            $stmt->bindParam(':price', $price);
+                            $stmt->bindParam(':id', $id);
 
-                        // Execute the query
-                        if ($stmt->execute()) {
-                            header('Location: product_read.php?action=saved');
-                            //echo "<div class='alert alert-success'>Record was updated.</div>";
+                            // Execute the query
+                            if ($stmt->execute()) {
+                                header('Location: product_read.php?action=saved');
+                                //echo "<div class='alert alert-success'>Record was updated.</div>";
+                            }
                         }
-                    }
-                    // show errors
-                    catch (PDOException $exception) {
-                        die('ERROR: ' . $exception->getMessage());
+                        // show errors
+                        catch (PDOException $exception) {
+                            die('ERROR: ' . $exception->getMessage());
+                        }
+                    } else {
+                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in number in price.</p></div>";
                     }
                 } else {
-                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in number in price.</p></div>";
+                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in letters in name.</p></div>";
                 }
             } else {
-                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please only key in letters in name.</p></div>";
+                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in name, description and price.</p></div>";
             }
-        } else {
-            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'><p class='text-white mb-0'>Please fill in name, description and price.</p></div>";
         }
-    }
-    ?>
+        ?>
     </div>
     <?php
     include 'nav.php';
@@ -147,23 +147,23 @@ session_start();
                 <div class="card-body px-md-7 px-sm-2 py-5">
                     <table class='table table-hover table-responsive'>
                         <tr>
-                            <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Name</th>
-                            <td style="border: none"><input type='text' name='name' value="<?php echo htmlspecialchars($name, ENT_QUOTES);  ?>" class='form-control' style="max-width: 85%" /></td>
+                            <label class="text-end text-uppercase text-secondary text-xs font-weight-bolder pt-4">Name</label>
+                            <input type='text' name='name' value="<?php echo htmlspecialchars($name, ENT_QUOTES);  ?>" class='form-control' /></td>
                         </tr>
                         <tr>
-                            <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Description</th>
-                            <td style="border: none"><textarea name='description' class='form-control' style="max-width: 85%"><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></textarea></td>
+                            <label style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder pt-4">Description</label>
+                            <textarea name='description' class='form-control'><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></textarea></td>
                         </tr>
                         <tr>
-                            <td style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Price</th>
-                            <td style="border: none"><input type='text' name='price' value="<?php echo htmlspecialchars($price, ENT_QUOTES);  ?>" class='form-control' style="max-width: 85%" /></td>
+                            <label style="border: none" class="text-end text-uppercase text-secondary text-xs font-weight-bolder pt-4">Price</label>
+                            <input type='text' name='price' value="<?php echo htmlspecialchars($price, ENT_QUOTES);  ?>" class='form-control' /></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>
-                                <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0' />
+                            <div class="pt-4">
+                                <input type='submit' value='Save' class='btn btn-primary btn bg-gradient-primary mb-0 me-3' />
                                 <a class="btn bg-gradient-dark mb-0" href="product_read.php"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Back to Product List</a>
-                            </td>
+                            </div>
                         </tr>
                     </table>
                 </div>

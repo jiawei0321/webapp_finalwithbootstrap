@@ -198,38 +198,38 @@ session_start();
         </nav>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="post">
             <div class="card mb-4 mx-4">
-                <div class="card-body px-7 py-5">
+                <div class="card-body px-md-7 px-sm-2 py-5">
                     <table class='table table-hover table-responsive'>
                         <tbody>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Username</th>
+                                <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Username</th>
                                 <td><input type='text' name='username' class='form-control col-11' value="<?php echo htmlspecialchars($username, ENT_QUOTES); ?>" /></td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Password</th>
+                                <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder ">Password</th>
                                 <td><input type='password' name='password' class='form-control' />
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Confirm Password</td>
+                                <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Confirm Password</td>
                                 <td><input type='password' name='confirmpassword' class='form-control' /></td>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Email</td>
+                                <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Email</td>
                                 <td><input type='text' name='email' value="<?php echo htmlspecialchars($email, ENT_QUOTES); ?>" class='form-control' />
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">First Name</td>
+                                <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder">First Name</td>
                                 <td><input type='text' name='firstname' value="<?php echo htmlspecialchars($firstname, ENT_QUOTES); ?>" class='form-control' />
                             </tr>
                             <tr>
-                                <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Last Name</td>
+                                <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Last Name</td>
                                 <td><input type='text' name='lastname' value="<?php echo htmlspecialchars($lastname, ENT_QUOTES); ?>" class='form-control' />
                             </tr>
                             <tr>
 
                                 <div class="<d-flex flex-row mb-3">
-                                    <td class="text-end text-uppercase text-secondary text-sm font-weight-bolder px-3 col-1">Date of Birth</td>
+                                    <td class="text-end text-uppercase text-secondary text-xs font-weight-bolder">Date of Birth</td>
                                     <td class="btn-group w-100">
                                         <div class="w-30 p-2">
                                             <label for="day">Day:</label>
