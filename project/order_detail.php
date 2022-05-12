@@ -93,6 +93,7 @@ $num = $stmt->rowCount();
                                             <tr>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">OrderDetail ID</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order ID</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fullname</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
@@ -109,23 +110,26 @@ $num = $stmt->rowCount();
                                         echo "<div class='d-flex px-4 py-3'>";
                                         echo "<div class='d-flex flex-column justify-content-center'>";
                                         echo "<h6 class='mb-0 text-sm'>{$orderdetail_id}</h6>";
-                                        echo "</div>";
-                                        echo "</div>";
+                                        
                                         echo "</td>";
 
                                         echo "<td class='align-middle text-center text-sm'>";
                                         //<span class="badge badge-sm bg-gradient-success">Online</span>
                                         echo "<span class='text-secondary text-xs font-weight-bold'>{$order_id}</span>";
                                         echo "</td>";
+
                                         echo "<td class='align-middle text-center'>";
                                         echo "<span class='text-secondary text-xs font-weight-bold'>{$name}</span>";
                                         echo "</td>";
+
                                         echo "<td class='align-middle text-center'>";
                                         echo "<span class='text-secondary text-xs font-weight-bold'>{$quantity}</span>";
                                         echo "</td>";
+
                                         echo "<td class='align-middle text-center'>";
                                         echo "<span class='text-secondary text-xs font-weight-bold'>{$price}</span>";
                                         echo "</td>";
+
                                         echo "<td class='align-middle text-center'>";
                                         $totalprice = number_format($quantity,2) * number_format($price,2);
                                         echo "<span class='text-secondary text-xs font-weight-bold'>";
@@ -133,6 +137,8 @@ $num = $stmt->rowCount();
                                         //echo number_format($totalprice,2);
                                         echo "</span>";
                                         echo "</td>";
+                                        echo "</div>";
+                                        echo "</div>";
                                         //echo "</tr>";
                                         echo "</tbody>";
                                     }
