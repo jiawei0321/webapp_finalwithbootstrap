@@ -176,7 +176,7 @@
 
                             //$customer_id = $con->lastInsertId();
                             //echo "<div class='alert alert-success'>Record was saved.</div>";
-                            header('Location: customer_read.php?action=saved');
+                            header('Location: index.php?action=nonavsignin');
                         } else {
                             echo "<div class='alert alert-danger'>Unable to save record.</div>";
                         }
